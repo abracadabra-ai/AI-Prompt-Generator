@@ -1,0 +1,16 @@
+{
+    "demoList": [
+        {
+            "name": "Kobe Bryant",
+            "age": "45",
+            "sex": "男",
+            "id": "1"
+        },
+        {
+            "name": "LeBron James",
+            "age": "39",
+            "sex": "男",
+            "id": "2"
+        }
+    ]
+}
