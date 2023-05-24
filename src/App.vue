@@ -1,17 +1,19 @@
 <script setup>
-import pageTop from '@/components/pageTop.vue'
+import pageTop from '@/components/pageTop/index.vue'
 </script>
 
 <template>
   <page-top />
-  <div class="page">
+  <div class="routelist">
     <router-view></router-view>
   </div>
 </template>
 
 <style scoped>
-.page {
-  padding-top: 200px;
+.routelist {
+  padding-top: 64px;
   text-align: center;
+  background-color: #EFEFFF;
+  min-height: calc(100vh - 64px);
 }
 </style>
