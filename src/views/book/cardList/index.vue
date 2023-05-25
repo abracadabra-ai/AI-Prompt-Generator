@@ -1,5 +1,6 @@
 <!-- 卡片列表 -->
 <template>
+  <!-- 分类 -->
   <div class="tags">
     <div class="tags__list">
       <div class="tags__list--item" v-for="item in tags" :key="item.id">
@@ -7,8 +8,10 @@
         {{ item.text }}
       </div>
     </div>
-    <div class="tags__add">+</div>
+    <div class="tags__add" @click="addTag">+</div>
   </div>
+
+  <!-- 内容 -->
   <div class="cardList">
     <div class="cardList__item" v-for="item in cardList" :key="item.id">
       <div class="cardList__item--img"></div>
@@ -19,10 +22,15 @@
       <div class="cardList__item--title">{{ item.text }}</div>
     </div>
   </div>
+
+  <!-- 添加弹框 -->
+  <add-tag-dialog ref="addTagDialog" />
 </template>
 
 <script setup>
 import { ref, reactive } from 'vue'
+import AddTagDialog from './addTagDialog/index.vue'
+
 
 const demoIcon = ref(new URL('./icon.png', import.meta.url).href)
 
@@ -132,6 +140,12 @@ const cardList = reactive([
   }
 ]
 )
+
+// 添加分类
+const addTagDialog = ref(null)
+const addTag = () => {
+  addTagDialog.value.open()
+}
 </script>
 
 <style lang='less' scoped>
@@ -151,6 +165,7 @@ const cardList = reactive([
       padding: 8px 12px;
       margin-right: 10px;
       margin-bottom: 10px;
+      cursor: pointer;
       img {
         vertical-align: middle;
         height: 18px;
@@ -167,6 +182,7 @@ const cardList = reactive([
     color: #FFFFFF;
     font-size: 30px;
     line-height: 34px;
+    cursor: pointer;
   }
 }
 
