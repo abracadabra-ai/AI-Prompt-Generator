@@ -1,6 +1,5 @@
 <!-- 添加提示词 -->
 <template>
-  <div>
   <!-- 提示词弹框 -->
   <el-dialog
     title="上传提示词"
@@ -28,13 +27,17 @@
     </div>
     <template #footer>
       <span class="footer">
-        <el-select v-model="value" class="m-2" placeholder="Select" size="large">
+        <el-select v-model="value" placeholder="选择分类" size="large">
           <el-option
             v-for="item in options"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          />
+          >
+            <div class="select">
+              <img class="select__img" :src="demoIcon" alt="">{{ item.value }}
+            </div>
+          </el-option>
           <div class="selectAdd" @click="addGroup">+新增分组</div>
         </el-select>
         <el-button class="footer__btn"  color="#626aef" :disabled="isSubmit" type="primary" @click="submit">上传</el-button>
@@ -43,7 +46,6 @@
   </el-dialog>
 
   <add-group-dialog ref="addGroupDialog" />
-</div>
 </template>
 
 <script setup>
@@ -51,6 +53,9 @@ import { ref, reactive, computed } from 'vue'
 import AddGroupDialog from '../addGroupDialog/index.vue'
 
 const dialogVisible = ref(false)
+
+const demoIcon = ref(new URL('./none.png', import.meta.url).href)
+
 
 // 是否可以上传
 const isSubmit = () => {
@@ -159,6 +164,15 @@ defineExpose({
     margin-right: 10px;
   }
 }
+
+.select {
+  &__img {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+  }
+}
+
 .selectAdd {
   padding: 10px 32px 10px 20px;
   color: #1B16FF;
