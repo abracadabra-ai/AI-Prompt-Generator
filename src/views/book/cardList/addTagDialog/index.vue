@@ -11,7 +11,7 @@
       <div class="box__img">
         <el-upload
           class="avatar"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="http://127.0.0.1:3000/upload/save"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
@@ -74,8 +74,12 @@ const noneImg = ref(new URL('./none.png', import.meta.url).href)
 const imageUrl = ref('')
 
 // 上传成功方法
-const handleAvatarSuccess = () => {
-  
+const handleAvatarSuccess = ( response, uploadFile) => {
+  console.log('response', response)
+  console.log('path', response.data.path)
+  console.log('uploadFile', uploadFile)
+  // imageUrl.value = URL.createObjectURL(uploadFile.raw) 
+  imageUrl.value = '../../../../../' + response.data.path;
 }
 
 //
