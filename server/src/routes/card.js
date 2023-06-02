@@ -60,7 +60,7 @@ router.get("/detail/:id", (req, res) => {
 });
 
 // 更新
-router.put("/update", (req, res) => {
+router.post("/update", (req, res) => {
   let { id, name } = req.body;
   if (!id) {
     responseClient(res, 400, 2, "分类id不能为空");

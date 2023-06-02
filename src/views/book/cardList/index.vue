@@ -17,7 +17,12 @@
 
   <!-- 内容 -->
   <div class="cardList">
-    <div class="cardList__item" v-for="item in cardList" :key="item.id">
+    <div
+      :class="`cardList__item ${ seCardlId === item.id && 'sel' }`"
+      v-for="item in cardList"
+      :key="item.id"
+      @dblclick="editCard(item)"
+    >
       <div class="cardList__item--img">
         <img :src="item.imageEx" :onerror="imgError" />
       </div>
@@ -26,12 +31,12 @@
   </div>
 
   <!-- 添加弹框 -->
-  <add-tag-dialog ref="addTagDialog" :categoryList="tags" @saveSuc="getCardList" />
+  <add-card-dialog ref="addCardDialog" :categoryList="tags" @saveSuc="getCardList" />
 </template>
 
 <script setup>
 import { ref, getCurrentInstance, computed } from 'vue'
-import AddTagDialog from './addTagDialog/index.vue'
+import AddCardDialog from './addCardDialog/index.vue'
 import { Get } from '@/utils/apis.js'
 const nodeFilePath = 'http://127.0.0.1:3000'
 
@@ -43,7 +48,7 @@ $bus.on('initCategorylist', () => {
 
 // 图片加载有问题
 const imgError = computed(() => {
-  return `this.src="${new URL('./addTagDialog/none.png', import.meta.url).href}"`
+  return `this.src="${new URL('./addCardDialog/none.png', import.meta.url).href}"`
 })
 
 // 分类数据
@@ -83,11 +88,19 @@ const getCardList = async () => {
   }
 }
 
+// 当前选中的卡片id
+const seCardlId = ref('')
+
+// 卡片编辑
+const editCard = async (item) => {
+  seCardlId.value = item.id
+  addCardDialog.value.open(item)
+}
 
 // 添加分类
-const addTagDialog = ref(null)
+const addCardDialog = ref(null)
 const addTag = () => {
-  addTagDialog.value.open()
+  addCardDialog.value.open()
 }
 
 
@@ -140,6 +153,12 @@ getTagsList()
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
+  box-sizing: border-box;
+
+  .sel {
+    border: 1px #1B16FF solid;
+    background: #EFEFFF;
+  }
 
   &__item {
     padding: 10px;

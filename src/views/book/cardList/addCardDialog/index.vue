@@ -18,7 +18,7 @@
             path: '/tag'
           }"
         >
-          <img v-if="imageUrl" :src="imageUrl" class="avatar__img" />
+          <img v-if="imageUrl" :src="imageUrl" class="avatar__img" :onerror="imgError" />
           <img v-else class="avatar__img" :src="noneImg" />
         </el-upload>
       </div>
@@ -42,7 +42,9 @@
           </el-option>
           <div class="selectAdd" @click="addGroup">+新增分组</div>
         </el-select>
-        <el-button class="footer__btn"  color="#626aef" :disabled="isSubmit" type="primary" @click="submit">上传</el-button>
+        <el-button class="footer__btn"  color="#626aef" :disabled="isSubmit" type="primary" @click="submit">
+          {{ formData.id ? '更新' : '上传' }}
+        </el-button>
       </span>
     </template>
   </el-dialog>
@@ -51,7 +53,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, defineProps, defineEmits } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import AddCategoryDialog from '../addCategoryDialog/index.vue'
 import { Post } from '@/utils/apis.js'
 import { ElMessage } from 'element-plus'
@@ -77,18 +79,33 @@ const formData = reactive({
 })
 
 
+// 默认图片
+const noneImg = ref(new URL('./none.png', import.meta.url).href)
+
+// 图片加载有问题
+const imgError = computed(() => {
+  return `this.src="${noneImg.value}"`
+})
+
 // 是否可以上传
 const isSubmit = computed(() => {
   return !formData.name_en || !formData.name || !formData.image || !formData.category_id
 })
 
 // 打开弹框
-const open = () => {
+const open = (item = null) => {
+  if (item && item.id) {
+    formData.id = item.id
+    formData.name = item.name
+    formData.name_en = item.name_en
+    formData.image = item.image
+    formData.category_id = item.category_id
+
+    imageUrl.value = nodeFilePath + item.image
+  }
   dialogVisible.value = true
 }
 
-// 默认图片
-const noneImg = ref(new URL('./none.png', import.meta.url).href)
 
 // 回显图片
 const imageUrl = ref('')
@@ -111,16 +128,31 @@ const addGroup = () => {
 
 const handleClose = () => {
   dialogVisible.value = false
+
+  formData.id = ''
+  formData.name = ''
+  formData.name_en = ''
+  formData.image = ''
+  formData.category_id = ''
+
+  imageUrl.value = ''
+
 }
 
 // 上传
 const submit = async () => {
-  const res = await Post('/card/save', formData)
+  let res = null
+  // 编辑
+  if (formData.id) {
+    res = await Post('/card/update', formData)
+  } else {
+    res = await Post('/card/save', formData)
+  }
   console.log('resss', res)
   if (res.code === 0) {
     ElMessage({
       type: 'success',
-      message: '添加卡片成功'
+      message: `${ formData.id ? '更新' : '新增' }卡片成功`
     })
     emits('saveSuc')
     handleClose()
