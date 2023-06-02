@@ -11,31 +11,33 @@
       <div class="box__img">
         <el-upload
           class="avatar"
-          action="http://127.0.0.1:3000/upload/save"
+          :action="`${nodeFilePath}/upload/save/tag`"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload"
+          :data="{
+            path: '/tag'
+          }"
         >
           <img v-if="imageUrl" :src="imageUrl" class="avatar__img" />
           <img v-else class="avatar__img" :src="noneImg" />
         </el-upload>
       </div>
       <div class="box__input">
-        <el-input class="box__input--item" v-model="promptEN" placeholder="Enter the prompt " />
-        <el-input class="box__input--item" v-model="promptCN" placeholder="输入中文提示词" />
+        <el-input class="box__input--item" v-model="formData.name_en" placeholder="Enter the prompt " />
+        <el-input class="box__input--item" v-model="formData.name" placeholder="输入中文提示词" />
       </div>
     </div>
     <template #footer>
       <span class="footer">
-        <el-select v-model="value" placeholder="选择分类" size="large">
+        <el-select v-model="formData.category_id" placeholder="选择分类" size="large">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in categoryList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
           >
             <div class="select">
-              <img class="select__img" :src="demoIcon" alt="">{{ item.value }}
+              {{ item.name }}
             </div>
           </el-option>
           <div class="selectAdd" @click="addGroup">+新增分组</div>
@@ -45,22 +47,40 @@
     </template>
   </el-dialog>
 
-  <add-group-dialog ref="addGroupDialog" />
+  <add-category-dialog ref="addCategoryDialog" />
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
-import AddGroupDialog from '../addGroupDialog/index.vue'
+import { ref, reactive, computed, defineProps, defineEmits } from 'vue'
+import AddCategoryDialog from '../addCategoryDialog/index.vue'
+import { Post } from '@/utils/apis.js'
+import { ElMessage } from 'element-plus'
+
+// 注册暴露方法
+const emits = defineEmits(['saveSuc'])
+
+defineProps({
+  // 分类列表
+  categoryList: Array,
+})
+
+const nodeFilePath = 'http://127.0.0.1:3000'
 
 const dialogVisible = ref(false)
 
-const demoIcon = ref(new URL('./none.png', import.meta.url).href)
+// 表单数据
+const formData = reactive({
+  name: '', // 提示词
+  name_en: '', // 英文提示词
+  image: '', // 图片路径
+  category_id: '', // 分组id
+})
 
 
 // 是否可以上传
-const isSubmit = () => {
-  return !promptEN.value || !promptCN.value || !imageUrl
-} 
+const isSubmit = computed(() => {
+  return !formData.name_en || !formData.name || !formData.image || !formData.category_id
+})
 
 // 打开弹框
 const open = () => {
@@ -70,7 +90,7 @@ const open = () => {
 // 默认图片
 const noneImg = ref(new URL('./none.png', import.meta.url).href)
 
-// 上传图片
+// 回显图片
 const imageUrl = ref('')
 
 // 上传成功方法
@@ -78,56 +98,33 @@ const handleAvatarSuccess = ( response, uploadFile) => {
   console.log('response', response)
   console.log('path', response.data.path)
   console.log('uploadFile', uploadFile)
-  // imageUrl.value = URL.createObjectURL(uploadFile.raw) 
-  imageUrl.value = '../../../../../' + response.data.path;
+  imageUrl.value = nodeFilePath + response.data.path;
+  formData.image = response.data.path
 }
 
-//
-const beforeAvatarUpload = () => {
-
-}
-
-// 添加分组
-const addGroupDialog = ref(null)
+// 添加分类
+const addCategoryDialog = ref(null)
 const addGroup = () => {
-  addGroupDialog.value.openGroup()
+  addCategoryDialog.value.open()
 }
 
-// 分类
-const options = reactive([
-  {
-    value: 'Option1',
-    label: 'Option1',
-  },
-  {
-    value: 'Option2',
-    label: 'Option2',
-  },
-  {
-    value: 'Option3',
-    label: 'Option3',
-  },
-  {
-    value: 'Option4',
-    label: 'Option4',
-  },
-  {
-    value: 'Option5',
-    label: 'Option5',
-  },
-])
-
-// 输入框
-const promptEN = ref('')
-const promptCN = ref('')
 
 const handleClose = () => {
   dialogVisible.value = false
 }
 
 // 上传
-const submit = () => {
-  handleClose()
+const submit = async () => {
+  const res = await Post('/card/save', formData)
+  console.log('resss', res)
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '添加卡片成功'
+    })
+    emits('saveSuc')
+    handleClose()
+  }
 }
 
 // 暴露方法给父组件
@@ -141,7 +138,7 @@ defineExpose({
   display: flex;
   &__img {
     .avatar {
-      &--img {
+      &__img {
         width: 120px;
         height: 120px;
         display: block;
@@ -169,13 +166,13 @@ defineExpose({
   }
 }
 
-.select {
-  &__img {
-    width: 18px;
-    height: 18px;
-    margin-right: 6px;
-  }
-}
+// .select {
+//   &__img {
+//     width: 18px;
+//     height: 18px;
+//     margin-right: 6px;
+//   }
+// }
 
 .selectAdd {
   padding: 10px 32px 10px 20px;

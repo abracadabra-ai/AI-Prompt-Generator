@@ -5,6 +5,9 @@ import { responseClient } from "../utils";
 const router = express.Router();
 
 // 列表
+/**
+ * id: category 中的 分类id
+ */
 router.get("/list", (req, res) => {
   let { id } = req.query;
   CardService.find(id, (err, data) => {

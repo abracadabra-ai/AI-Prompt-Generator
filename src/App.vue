@@ -13,7 +13,7 @@ import pageTop from '@/components/pageTop/index.vue'
 .routelist {
   padding-top: 64px;
   text-align: center;
-  background-color: #EFEFFF;
+  background-color: #F5F6F7;
   min-height: calc(100vh - 64px);
 }
 </style>

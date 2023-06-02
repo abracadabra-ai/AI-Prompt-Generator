@@ -30,6 +30,12 @@ export default defineConfig({
         target: 'https://openapi.youdao.com/api',
         changeOrigin: true,
       },
+      '/category': {
+        target: 'http://127.0.0.1:3000',
+      },
+      '/card': {
+        target: 'http://127.0.0.1:3000',
+      },
     }
   }
 })

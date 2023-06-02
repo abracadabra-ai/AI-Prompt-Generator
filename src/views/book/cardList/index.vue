@@ -3,9 +3,13 @@
   <!-- 分类 -->
   <div class="tags">
     <div class="tags__list">
-      <div class="tags__list--item" v-for="item in tags" :key="item.id">
-        <img :src="demoIcon" alt="">
-        {{ item.text }}
+      <div
+        :class="`tags__list--item ${tagsId === item.id && 'sel'}`"
+        v-for="item in tags"
+        :key="item.id"
+        @click="selTag(item)"
+      >
+        {{ item.name }}
       </div>
     </div>
     <div class="tags__add" @click="addTag">+</div>
@@ -14,138 +18,81 @@
   <!-- 内容 -->
   <div class="cardList">
     <div class="cardList__item" v-for="item in cardList" :key="item.id">
-      <div class="cardList__item--img"></div>
-      <div class="cardList__item--title">{{ item.text }}</div>
-    </div>
-    <div class="cardList__item" v-for="item in cardList" :key="item.id">
-      <div class="cardList__item--img"></div>
-      <div class="cardList__item--title">{{ item.text }}</div>
+      <div class="cardList__item--img">
+        <img :src="item.imageEx" :onerror="imgError" />
+      </div>
+      <div class="cardList__item--title">{{ item.name }}</div>
     </div>
   </div>
 
   <!-- 添加弹框 -->
-  <add-tag-dialog ref="addTagDialog" />
+  <add-tag-dialog ref="addTagDialog" :categoryList="tags" @saveSuc="getCardList" />
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, getCurrentInstance, computed } from 'vue'
 import AddTagDialog from './addTagDialog/index.vue'
+import { Get } from '@/utils/apis.js'
+const nodeFilePath = 'http://127.0.0.1:3000'
 
+const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
-const demoIcon = ref(new URL('./icon.png', import.meta.url).href)
+$bus.on('initCategorylist', () => {
+  getTagsList()
+})
 
-const tags = reactive([
-  {
-    "id": 1,
-    "image": "https://example.com/image1.jpg",
-    "text": "这是文案1。"
-  },
-  {
-    "id": 2,
-    "image": "https://example.com/image2.jpg",
-    "text": "这是文案2。"
-  },
-  {
-    "id": 3,
-    "image": "https://example.com/image3.jpg",
-    "text": "这是文案3。"
-  },
-  {
-    "id": 4,
-    "image": "https://example.com/image4.jpg",
-    "text": "这是文案4。"
-  },
-  {
-    "id": 5,
-    "image": "https://example.com/image5.jpg",
-    "text": "这是文案5。"
-  },
-  {
-    "id": 6,
-    "image": "https://example.com/image6.jpg",
-    "text": "这是文案6。"
-  },
-  {
-    "id": 7,
-    "image": "https://example.com/image7.jpg",
-    "text": "这是文案7。"
-  },
-  {
-    "id": 8,
-    "image": "https://example.com/image8.jpg",
-    "text": "这是文案8。"
-  },
-  {
-    "id": 9,
-    "image": "https://example.com/image9.jpg",
-    "text": "这是文案9。"
-  },
-  {
-    "id": 10,
-    "image": "https://example.com/image10.jpg",
-    "text": "这是文案10。"
+// 图片加载有问题
+const imgError = computed(() => {
+  return `this.src="${new URL('./addTagDialog/none.png', import.meta.url).href}"`
+})
+
+// 分类数据
+const tags = ref([])
+
+// 当前分类id
+const tagsId = ref(0)
+
+// 获取分类
+const getTagsList = async () => {
+  const res = await Get('/category/list')
+  if (res.code === 0) {
+    tags.value = res.data
+    tagsId.value = tags.value[0].id
+    getCardList(tagsId.value)
   }
-]
-)
-const cardList = reactive([
-  {
-    "id": 1,
-    "image": "https://example.com/image1.jpg",
-    "text": "这是文案1。"
-  },
-  {
-    "id": 2,
-    "image": "https://example.com/image2.jpg",
-    "text": "这是文案2。"
-  },
-  {
-    "id": 3,
-    "image": "https://example.com/image3.jpg",
-    "text": "这是文案3。"
-  },
-  {
-    "id": 4,
-    "image": "https://example.com/image4.jpg",
-    "text": "这是文案4。"
-  },
-  {
-    "id": 5,
-    "image": "https://example.com/image5.jpg",
-    "text": "这是文案5。"
-  },
-  {
-    "id": 6,
-    "image": "https://example.com/image6.jpg",
-    "text": "这是文案6。"
-  },
-  {
-    "id": 7,
-    "image": "https://example.com/image7.jpg",
-    "text": "这是文案7。"
-  },
-  {
-    "id": 8,
-    "image": "https://example.com/image8.jpg",
-    "text": "这是文案8。"
-  },
-  {
-    "id": 9,
-    "image": "https://example.com/image9.jpg",
-    "text": "这是文案9。"
-  },
-  {
-    "id": 10,
-    "image": "https://example.com/image10.jpg",
-    "text": "这是文案10。"
+}
+
+// 选择分类
+const selTag = (item) => {
+  tagsId.value = item.id
+  getCardList()
+}
+
+// 卡片列表
+const cardList = ref([])
+// 获取卡片数据
+const getCardList = async () => {
+  const res = await Get('/card/list', {
+    id: tagsId.value,
+  })
+  if (res.code === 0) {
+    cardList.value = res.data.map((item) => {
+      item.imageEx = `${nodeFilePath}${item.image}`
+      return item
+    })
   }
-]
-)
+}
+
 
 // 添加分类
 const addTagDialog = ref(null)
 const addTag = () => {
   addTagDialog.value.open()
 }
+
+
+// 页面初始化
+getTagsList()
 </script>
 
 <style lang='less' scoped>
@@ -154,10 +101,12 @@ const addTag = () => {
   display: flex;
   width: 100%;
   justify-content: space-between;
+
   &__list {
     flex: 1;
     display: flex;
     flex-wrap: wrap;
+
     &--item {
       background: #FFFFFF;
       border: 1px solid #E7E7F2;
@@ -166,10 +115,10 @@ const addTag = () => {
       margin-right: 10px;
       margin-bottom: 10px;
       cursor: pointer;
-      img {
-        vertical-align: middle;
-        height: 18px;
-        width: 18px;
+
+      &.sel {
+        border-color: #1B16FF;
+        background: #EFEFFF;
       }
     }
   }
@@ -191,20 +140,26 @@ const addTag = () => {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
+
   &__item {
     padding: 10px;
     background-color: #FFFFFF;
     margin-right: 16px;
     margin-bottom: 16px;
+
     &--img {
       width: 120px;
       height: 120px;
-      background: url('./icon.png');
-      background-size: contain;
+      line-height: 120px;
+      img {
+        max-width: 120px;
+        max-height: 120px;
+      }
     }
+
     &--title {
       padding-top: 10px;
+      text-align: left;
     }
   }
-}
-</style>
+}</style>

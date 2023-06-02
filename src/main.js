@@ -2,7 +2,10 @@ import { createApp } from 'vue'
 import './reset.css'
 import App from './App.vue'
 import router from './router/index.js'
+import mitt from 'mitt'
 
-createApp(App)
-  .use(router)
-  .mount('#app')
+const app = createApp(App)
+
+app.config.globalProperties.$bus = mitt()
+
+app.use(router).mount('#app')
