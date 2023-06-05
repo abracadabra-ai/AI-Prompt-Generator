@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd()) // 环境变量
 
   return {
+    base: '/web',
     plugins: [
       vue(),
       ElementPlus(), // elementUI 样式
