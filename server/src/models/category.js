@@ -1,8 +1,9 @@
 import fs from "fs";
 import path from "path";
 
-const dbPath = path.join(__dirname, "../db/category.json"); // 获取数据路径
+const dbPath = path.join(__dirname, "../../public/db/category.json"); // 获取数据路径
 
+console.log(7777, dbPath)
 export default {
   /**
    * 列表

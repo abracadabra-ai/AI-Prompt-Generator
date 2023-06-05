@@ -2,7 +2,7 @@
 import fs from "fs";
 import path from "path";
 
-const dbPath = path.join(__dirname, "../db/case.json"); // 获取数据路径
+const dbPath = path.join(__dirname, "../../public/db/case.json"); // 获取数据路径
 
 export default {
   /**

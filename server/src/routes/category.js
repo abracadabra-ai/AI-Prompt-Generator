@@ -6,6 +6,7 @@ const router = express.Router();
 
 // 列表
 router.get("/list", (req, res) => {
+  console.log('CategoryService', CategoryService)
   CategoryService.find((err, data) => {
     if (err) {
       responseClient(res, 500, -10000, "服务端异常", null);
