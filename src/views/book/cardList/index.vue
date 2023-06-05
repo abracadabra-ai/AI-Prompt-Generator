@@ -38,7 +38,7 @@
 import { ref, getCurrentInstance, computed } from 'vue'
 import AddCardDialog from './addCardDialog/index.vue'
 import { Get } from '@/utils/apis.js'
-const nodeFilePath = 'http://127.0.0.1:3000'
+const nodeFilePath = import.meta.env.VITE_NODE_PUBLIC_PATH
 
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
@@ -179,6 +179,8 @@ getTagsList()
     &--title {
       padding-top: 10px;
       text-align: left;
+      width: 120px;
+      line-height: 24px;
     }
   }
 }</style>

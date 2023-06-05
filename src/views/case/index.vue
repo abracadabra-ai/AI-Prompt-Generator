@@ -6,7 +6,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import cardList from './cardList/index.vue'
 
 </script>

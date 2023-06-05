@@ -11,7 +11,7 @@
       <div class="box__img">
         <el-upload
           class="avatar"
-          :action="`${nodeFilePath}/upload/save/tag`"
+          :action="`${nodeFilePath}/upload/save/category`"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :data="{
@@ -66,7 +66,7 @@ defineProps({
   categoryList: Array,
 })
 
-const nodeFilePath = 'http://127.0.0.1:3000'
+const nodeFilePath = import.meta.env.VITE_NODE_PUBLIC_PATH
 
 const dialogVisible = ref(false)
 
@@ -112,9 +112,6 @@ const imageUrl = ref('')
 
 // 上传成功方法
 const handleAvatarSuccess = ( response, uploadFile) => {
-  console.log('response', response)
-  console.log('path', response.data.path)
-  console.log('uploadFile', uploadFile)
   imageUrl.value = nodeFilePath + response.data.path;
   formData.image = response.data.path
 }
@@ -136,7 +133,6 @@ const handleClose = () => {
   formData.category_id = ''
 
   imageUrl.value = ''
-
 }
 
 // 上传

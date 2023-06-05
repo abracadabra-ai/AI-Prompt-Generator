@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import { ElMessage } from 'element-plus'
 
 export const Get = async (url, data) => {
   return await new Promise((resolve, reject) => {
@@ -7,7 +8,11 @@ export const Get = async (url, data) => {
     }).then(res => {
       resolve(res.data)
     }).catch(err => {
-      reject(err)
+      ElMessage({
+        type: 'error',
+        message: err.message
+      })
+      reject(err.message)
     })
   })
 }
@@ -19,7 +24,11 @@ export const Post = async (url, data) => {
     }).then(res => {
       resolve(res.data)
     }).catch(err => {
-      reject(err)
+      ElMessage({
+        type: 'error',
+        message: err.message
+      })
+      reject(err.message)
     })
   })
 }

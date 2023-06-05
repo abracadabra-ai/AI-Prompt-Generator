@@ -36,6 +36,12 @@ export default defineConfig({
       '/card': {
         target: 'http://127.0.0.1:3000',
       },
+      '/case': {
+        target: 'http://127.0.0.1:3000',
+      },
+      '/type': {
+        target: 'http://127.0.0.1:3000',
+      },
     }
   }
 })

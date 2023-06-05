@@ -2,143 +2,144 @@
 <template>
   <div>
     <!-- 导航 -->
-    <div class="tags">
-      <div class="tags__list">
-        <div class="tags__list--item" v-for="item in tags" :key="item.id">
-          <img :src="demoIcon" alt="">
-          {{ item.text }}
+    <div class="type">
+      <div class="type__list">
+        <div :class="`type__list--item ${typeId === 0 && 'sel'}`" @click="selType(0)">
+          <img src="./img/all.png" v-show="typeId !== 0" alt="">
+          <img src="./img/all_sel.png" v-show="typeId === 0" alt="">
+          全部
+        </div>
+        <div :class="`type__list--item ${typeId === item.id && 'sel'}`" @click="selType(item.id)" v-for="item in type" :key="item.id">
+          {{ item.name }}
         </div>
       </div>
-      <div class="tags__add" @click="addCase">
+      <div class="type__add" @click="addCase">
         <img src="./img/up.png" alt="" />
         上传案例
       </div>
     </div>
 
     <!-- 瀑布流 -->
-    <div class="cardList">
-      <div class="cardList__item" v-for="item in cardList" :key="item.id">
-        <div class="cardList__item--img"></div>
-        <div class="cardList__item--title">{{ item.text }}</div>
+    <div class="cardList" v-if="caseList.length">
+      <div class="cardList__item" v-for="item in caseList" :key="item.id">
+        <div class="cardList__item--img">
+          <img :src="item.imageEx" :onerror="imgError" />
+        </div>
+        <div class="cardList__item--title">{{ item.name }}</div>
         <div class="cardList__item--btnList">
-          <div class="btn">
+          <div class="btn" @click="edit(item)">
             <img src="./img/edit.png" alt="">
             编辑提示词
           </div>
-          <div class="btn">
+          <div class="btn" @click="copyName(item)">
             <img src="./img/copy.png" alt="">
             复制
           </div>
         </div>
       </div>
     </div>
+    <div class="noneTips" v-else>
+      当前分组未上传案例
+    </div>
 
-    <add-case-Dialog ref="addCaseDialog" />
+    <add-case-Dialog ref="addCaseDialog" :typeList="type" @saveSuc="getCaseList" />
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, computed, getCurrentInstance } from 'vue'
 import AddCaseDialog from './addCaseDialog/index.vue'
+import { Get } from '@/utils/apis.js'
+import { ElMessage } from 'element-plus'
+import { useClipboard } from '@vueuse/core'
 
+// 复制
+const { copy } = useClipboard()
+
+// 服务器静态资源目录
+const nodeFilePath = import.meta.env.VITE_NODE_PUBLIC_PATH
 const addCaseDialog = ref(null)
 
+console.log(999, import.meta.env, import.meta.env.VITE_NODE_PUBLIC_PATH)
+const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
+
+// 分组刷新
+$bus.on('initTypelist', () => {
+  getTypeList()
+})
+
 const addCase = () => {
-  console.log(9999, addCaseDialog)
   addCaseDialog.value.open()
 }
 
-const tags = reactive([
-  {
-    "id": 1,
-    "image": "https://example.com/image1.jpg",
-    "text": "这是文案1。"
-  },
-  {
-    "id": 2,
-    "image": "https://example.com/image2.jpg",
-    "text": "这是文案2。"
-  },
-  {
-    "id": 3,
-    "image": "https://example.com/image3.jpg",
-    "text": "这是文案3。"
-  },
-  {
-    "id": 4,
-    "image": "https://example.com/image4.jpg",
-    "text": "这是文案4。"
-  },
-  {
-    "id": 5,
-    "image": "https://example.com/image5.jpg",
-    "text": "这是文案5。"
-  },
-]
-)
-const cardList = reactive([
-  {
-    "id": 1,
-    "image": "https://example.com/image1.jpg",
-    "text": "这是文案1。这是文案1。这是文案1。这是文案1。这是文案1。这是文案1。这是文案1。这是文案1。这是文案1。这是文案1。这是文案1。这是文案1。"
-  },
-  {
-    "id": 2,
-    "image": "https://example.com/image2.jpg",
-    "text": "这是文案2。"
-  },
-  {
-    "id": 3,
-    "image": "https://example.com/image3.jpg",
-    "text": "这是文案3。"
-  },
-  {
-    "id": 4,
-    "image": "https://example.com/image4.jpg",
-    "text": "这是文案4。"
-  },
-  {
-    "id": 5,
-    "image": "https://example.com/image5.jpg",
-    "text": "这是文案5。"
-  },
-  {
-    "id": 6,
-    "image": "https://example.com/image6.jpg",
-    "text": "这是文案6。"
-  },
-  {
-    "id": 7,
-    "image": "https://example.com/image7.jpg",
-    "text": "这是文案7。"
-  },
-  {
-    "id": 8,
-    "image": "https://example.com/image8.jpg",
-    "text": "这是文案8。"
-  },
-  {
-    "id": 9,
-    "image": "https://example.com/image9.jpg",
-    "text": "这是文案9。"
-  },
-  {
-    "id": 10,
-    "image": "https://example.com/image10.jpg",
-    "text": "这是文案10。"
+// 图片加载有问题
+const imgError = computed(() => {
+  return `this.src="${new URL('./img/none.png', import.meta.url).href}"`
+})
+
+// 分类数据
+const type = ref([])
+
+// 当前分类id
+const typeId = ref(0)
+
+// 获取分类
+const getTypeList = async () => {
+  const res = await Get('/type/list')
+  if (res.code === 0) {
+    type.value = res.data
+    getCaseList()
   }
-]
-)
+}
+
+// 选择分类
+const selType = (id) => {
+  typeId.value = id
+  getCaseList()
+}
+
+// 案例列表
+const caseList = ref([])
+
+// 获取案例数据
+const getCaseList = async () => {
+  const res = await Get('/case/list', {
+    id: typeId.value,
+  })
+  if (res.code === 0) {
+    caseList.value = res.data.map((item) => {
+      item.imageEx = `${nodeFilePath}${item.image}`
+      return item
+    })
+    console.log('案例列表', caseList.value)
+  }
+}
+
+// 编辑卡片提示词
+const edit = async (item) => {
+  addCaseDialog.value.open(item)
+}
+
+// 复杂功能
+const copyName = (item) => {
+  copy(item.name)
+  ElMessage({
+    type: 'success',
+    message: '复制成功'
+  })
+}
+
+getTypeList()
 </script>
 
 <style lang='less' scoped>
-.tags {
+.type {
   display: flex;
   width: 100%;
   justify-content: space-between;
   position: sticky;
   top: 64px;
-  background: #EFEFFF;
+  background: #F5F6F7;
   padding: 10px 0 0;
 
   &__list {
@@ -159,6 +160,11 @@ const cardList = reactive([
         vertical-align: middle;
         height: 18px;
         width: 18px;
+      }
+
+      &.sel {
+        border-color: #1B16FF;
+        background: #EFEFFF;
       }
     }
   }
@@ -193,10 +199,10 @@ const cardList = reactive([
     overflow: auto;
 
     &--img {
-      width: 120px;
-      height: 120px;
-      background: url('./icon.png');
-      background-size: contain;
+      width: 100%;
+      img {
+        width: 100%;
+      }
     }
 
     &--title {
@@ -215,6 +221,7 @@ const cardList = reactive([
         font-size: 14px;
         width: 134px;
         text-align: center;
+        cursor: pointer;
         img {
           width: 20px;
           height: 20px;
@@ -223,5 +230,11 @@ const cardList = reactive([
       }
     }
   }
+}
+.noneTips {
+  text-align: center;
+  width: 100%;
+  margin-top: 30vh;
+  font-size: 28px;
 }
 </style>
