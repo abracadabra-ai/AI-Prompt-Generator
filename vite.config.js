@@ -11,6 +11,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: '/web',
+    build: {
+      outDir: './server/public/dist',
+    },
     plugins: [
       vue(),
       ElementPlus(), // elementUI 样式
