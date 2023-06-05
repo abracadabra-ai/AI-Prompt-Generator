@@ -14,6 +14,5 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/", router);
 app.use("/web", express.static(path.join(__dirname, "../public/dist")));
-// console.log(222, path.join(__dirname, "../public/dist/index.html"))
 
 export default app;
