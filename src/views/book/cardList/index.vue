@@ -16,7 +16,7 @@
   </div>
 
   <!-- 内容 -->
-  <div class="cardList">
+  <div class="cardList" v-if="cardList.length">
     <div
       :class="`cardList__item ${ seCardlId === item.id && 'sel' }`"
       v-for="item in cardList"
@@ -28,6 +28,9 @@
       </div>
       <div class="cardList__item--title">{{ item.name }}</div>
     </div>
+  </div>
+  <div class="noneTips" v-else>
+    当前分组未上传内容
   </div>
 
   <!-- 添加弹框 -->
@@ -183,4 +186,11 @@ getTagsList()
       line-height: 24px;
     }
   }
-}</style>
+}
+.noneTips {
+  text-align: center;
+  width: 100%;
+  margin-top: 20vh;
+  font-size: 28px;
+}
+</style>
