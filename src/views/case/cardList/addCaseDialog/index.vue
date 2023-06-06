@@ -1,7 +1,7 @@
 <!-- 上传案列 -->
 <template>
   <el-dialog
-    title="上传案列"
+  :title="`${ formData.id ? '更新' : '上传' }案列`"
     v-model="dialogVisible"
     width="570px"
     :before-close="handleClose"
@@ -38,7 +38,7 @@
           </el-option>
           <div class="selectAdd" @click="addType">+新增分组</div>
         </el-select>
-        <el-button class="footer__btn"  color="#626aef" :disabled="isSubmit" type="primary" @click="submit">上传</el-button>
+        <el-button class="footer__btn"  color="#626aef" :disabled="isSubmit" type="primary" @click="submit">{{ formData.id ? '更新' : '上传' }}</el-button>
       </span>
     </template>
   </el-dialog>
@@ -64,7 +64,7 @@ defineProps(({
 
 // 图片加载有问题
 const imgError = computed(() => {
-  return `this.src="${new URL('@/assets/img/case/none_up.png', import.meta.url).href}"`
+  return formData.id ? `this.src="${new URL('@/assets/img/case/none.png', import.meta.url).href}"` : `this.src="${new URL('@/assets/img/case/none_up.png', import.meta.url).href}"`
 })
 
 const dialogVisible = ref(false)
@@ -74,6 +74,7 @@ const handleClose = () => {
 
 // 表单数据
 const formData = reactive({
+  id: null,
   name: '', // 提示词
   image: '', // 图片路径
   type_id: '', // 分组id

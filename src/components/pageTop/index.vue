@@ -6,7 +6,7 @@
     </div>
     <div class="list">
       <div
-        class="list__item"
+        :class="`list__item ${selId === item.id && 'sel'}`"
         v-for="item in routerList"
         :key="item.id"
         @click="toPage(item)"
@@ -75,9 +75,11 @@ const selId = computed(() => {
   align-items: center;
   min-width: 1080px;
   background-color: #fff;
-
+  overflow-x: hidden;
+  z-index: 999;
   .logo {
     height: 44px;
+    margin-left: 20px;
     img {
       width: 160px;
       height: 44px;
@@ -87,12 +89,30 @@ const selId = computed(() => {
   .list {
     display: flex;
     &__item {
-      padding: 0 40px;
+      padding: 0 30px;
       cursor: pointer;
+      font-family: 'Source Han Sans SC';
+      &.sel {
+        position: relative;
+        &:after {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          margin-left: -24px;
+          content: '';
+          height: 3px;
+          width: 48px;
+          display: block;
+          background-color: #1B16FF;
+          border-radius: 3px;
+        }
+      }
+
       &--logo {
         width: 20px;
         height: 20px;
-        vertical-align: middle;
+        vertical-align: sub;
+        margin-right: 4px;
       }
     }
   }

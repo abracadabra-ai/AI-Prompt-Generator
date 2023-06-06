@@ -206,6 +206,11 @@ getTypeList()
     &--title {
       padding-top: 10px;
       text-align: left;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      line-height: 34px;
     }
 
     &--btnList {

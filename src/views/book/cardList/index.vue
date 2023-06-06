@@ -21,7 +21,7 @@
       :class="`cardList__item ${ seCardlId === item.id && 'sel' }`"
       v-for="item in cardList"
       :key="item.id"
-      @dblclick="editCard(item)"
+      @click="selCard(item)"
     >
       <div class="cardList__item--img">
         <img :src="item.imageEx" :onerror="imgError" />
@@ -96,8 +96,13 @@ const seCardlId = ref('')
 
 // 卡片编辑
 const editCard = async (item) => {
-  seCardlId.value = item.id
   addCardDialog.value.open(item)
+}
+
+// 选择卡片
+const selCard = async (item) => {
+  seCardlId.value = item.id
+  $bus.emit('selCard', item)
 }
 
 // 添加分类
@@ -184,6 +189,10 @@ getTagsList()
       text-align: left;
       width: 120px;
       line-height: 24px;
+      // 超出
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

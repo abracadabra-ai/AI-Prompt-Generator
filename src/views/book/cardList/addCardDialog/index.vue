@@ -2,7 +2,7 @@
 <template>
   <!-- 提示词弹框 -->
   <el-dialog
-    title="上传提示词"
+    :title="`${ formData.id ? '更新' : '上传' }提示词`"
     v-model="dialogVisible"
     width="570px"
     :before-close="handleClose"
@@ -40,7 +40,7 @@
               {{ item.name }}
             </div>
           </el-option>
-          <div class="selectAdd" @click="addGroup">+新增分组</div>
+          <div class="selectAdd" @click="addGroup">+新建分组</div>
         </el-select>
         <el-button class="footer__btn"  color="#626aef" :disabled="isSubmit" type="primary" @click="submit">
           {{ formData.id ? '更新' : '上传' }}
@@ -72,6 +72,7 @@ const dialogVisible = ref(false)
 
 // 表单数据
 const formData = reactive({
+  id: null,
   name: '', // 提示词
   name_en: '', // 英文提示词
   image: '', // 图片路径
@@ -80,7 +81,9 @@ const formData = reactive({
 
 
 // 默认图片
-const noneImg = ref(new URL('@/assets/img/book/none.png', import.meta.url).href)
+const noneImg = computed(() => {
+  return formData.id ? (new URL('@/assets/img/book/none.png', import.meta.url).href) : (new URL('@/assets/img/book/none_up.png', import.meta.url).href)
+})
 
 // 图片加载有问题
 const imgError = computed(() => {
@@ -89,7 +92,7 @@ const imgError = computed(() => {
 
 // 是否可以上传
 const isSubmit = computed(() => {
-  return !formData.name_en || !formData.name || !formData.image || !formData.category_id
+  return !formData.name_en || !formData.name || !formData.category_id
 })
 
 // 打开弹框
@@ -204,5 +207,9 @@ defineExpose({
 .selectAdd {
   padding: 10px 32px 10px 20px;
   color: #1B16FF;
+  font-family: 'Source Han Sans SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
 }
 </style>
