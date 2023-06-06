@@ -16,7 +16,7 @@
           :before-upload="beforeAvatarUpload"
         >
           <img v-if="imageUrl" :src="imageUrl" class="avatar__img" :onerror="imgError" />
-          <img v-else class="avatar__img" src="./none.png" />
+          <img v-else class="avatar__img" src="@/assets/img/case/none_up.png" />
         </el-upload>
       </div>
       <div class="box__input">
@@ -64,7 +64,7 @@ defineProps(({
 
 // 图片加载有问题
 const imgError = computed(() => {
-  return `this.src="${new URL('../img/none.png', import.meta.url).href}"`
+  return `this.src="${new URL('@/assets/img/case/none_up.png', import.meta.url).href}"`
 })
 
 const dialogVisible = ref(false)

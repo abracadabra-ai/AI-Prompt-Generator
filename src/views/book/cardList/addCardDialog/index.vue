@@ -80,7 +80,7 @@ const formData = reactive({
 
 
 // 默认图片
-const noneImg = ref(new URL('./none.png', import.meta.url).href)
+const noneImg = ref(new URL('@/assets/img/book/none.png', import.meta.url).href)
 
 // 图片加载有问题
 const imgError = computed(() => {

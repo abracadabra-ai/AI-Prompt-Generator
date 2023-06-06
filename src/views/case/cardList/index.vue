@@ -5,8 +5,8 @@
     <div class="type">
       <div class="type__list">
         <div :class="`type__list--item ${typeId === 0 && 'sel'}`" @click="selType(0)">
-          <img src="./img/all.png" v-show="typeId !== 0" alt="">
-          <img src="./img/all_sel.png" v-show="typeId === 0" alt="">
+          <img src="@/assets/img/case/all.png" v-show="typeId !== 0" alt="">
+          <img src="@/assets/img/case/all_sel.png" v-show="typeId === 0" alt="">
           全部
         </div>
         <div :class="`type__list--item ${typeId === item.id && 'sel'}`" @click="selType(item.id)" v-for="item in type" :key="item.id">
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="type__add" @click="addCase">
-        <img src="./img/up.png" alt="" />
+        <img src="@/assets/img/case/up.png" alt="" />
         上传案例
       </div>
     </div>
@@ -28,11 +28,11 @@
         <div class="cardList__item--title">{{ item.name }}</div>
         <div class="cardList__item--btnList">
           <div class="btn" @click="edit(item)">
-            <img src="./img/edit.png" alt="">
+            <img src="@/assets/img/case/edit.png" alt="">
             编辑提示词
           </div>
           <div class="btn" @click="copyName(item)">
-            <img src="./img/copy.png" alt="">
+            <img src="@/assets/img/case/copy.png" alt="">
             复制
           </div>
         </div>
@@ -74,7 +74,7 @@ const addCase = () => {
 
 // 图片加载有问题
 const imgError = computed(() => {
-  return `this.src="${new URL('./img/none.png', import.meta.url).href}"`
+  return `this.src="${new URL('@/assets/img/case/none.png', import.meta.url).href}"`
 })
 
 // 分类数据

@@ -51,7 +51,7 @@ $bus.on('initCategorylist', () => {
 
 // 图片加载有问题
 const imgError = computed(() => {
-  return `this.src="${new URL('./addCardDialog/none.png', import.meta.url).href}"`
+  return `this.src="${new URL('@/assets/img/book/none.png', import.meta.url).href}"`
 })
 
 // 分类数据
