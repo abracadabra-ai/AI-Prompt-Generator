@@ -60,7 +60,6 @@ const { copy } = useClipboard()
 const nodeFilePath = import.meta.env.VITE_NODE_PUBLIC_PATH
 const addCaseDialog = ref(null)
 
-console.log(999, import.meta.env, import.meta.env.VITE_NODE_PUBLIC_PATH)
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
 // 分组刷新
@@ -111,7 +110,6 @@ const getCaseList = async () => {
       item.imageEx = `${nodeFilePath}${item.image}`
       return item
     })
-    console.log('案例列表', caseList.value)
   }
 }
 

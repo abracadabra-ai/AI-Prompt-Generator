@@ -30,7 +30,6 @@ function getMp3Url(query) {
         // vocabId: vocabId,
       },
       success: function (data) {
-        // console.log(data);
         resolve(data.translation[0])
       },
       fail(err) {
@@ -43,9 +42,6 @@ function getMp3Url(query) {
 function truncate(q) {
   const len = q.length;
   if (len <= 20) return q;
-
-  console.log(q, len)
-  console.log(q.substring(0, 10))
   return q.substring(0, 10) + len + q.substring(len - 10, len);
 }
 

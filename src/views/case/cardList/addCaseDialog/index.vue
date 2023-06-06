@@ -116,7 +116,6 @@ const submit = async () => {
   } else {
     res = await Post('/case/save', formData)
   }
-  console.log('resss', res)
   if (res.code === 0) {
     ElMessage({
       type: 'success',
