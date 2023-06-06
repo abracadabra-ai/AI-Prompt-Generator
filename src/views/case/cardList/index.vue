@@ -51,10 +51,11 @@ import { ref, computed, getCurrentInstance } from 'vue'
 import AddCaseDialog from './addCaseDialog/index.vue'
 import { Get } from '@/utils/apis.js'
 import { ElMessage } from 'element-plus'
-import { useClipboard } from '@vueuse/core'
+import useClipboard from 'vue-clipboard3'
 
 // 复制
-const { copy } = useClipboard()
+const { toClipboard } = useClipboard()
+
 
 // 服务器静态资源目录
 const nodeFilePath = import.meta.env.VITE_NODE_PUBLIC_PATH
@@ -120,7 +121,7 @@ const edit = async (item) => {
 
 // 复杂功能
 const copyName = (item) => {
-  copy(item.name)
+  toClipboard(item.name)
   ElMessage({
     type: 'success',
     message: '复制成功'

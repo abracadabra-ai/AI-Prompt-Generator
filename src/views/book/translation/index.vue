@@ -30,7 +30,7 @@
 <script setup>
 import { ref, getCurrentInstance } from 'vue'
 import { getMp3Url } from './youdao.js'
-import { useClipboard } from '@vueuse/core'
+import useClipboard from 'vue-clipboard3'
 import { ElMessage } from 'element-plus'
 
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
@@ -40,7 +40,7 @@ $bus.on('selCard', (item) => {
 })
 
 // 复制
-const { copy } = useClipboard()
+const { toClipboard } = useClipboard()
 const inputTxt = ref('')
 const outputTxt = ref('')
 
@@ -57,7 +57,7 @@ const clearInput = () => {
 
 // 复制
 const copyOutput = () => {
-  copy(outputTxt.value)
+  toClipboard(outputTxt.value)
   ElMessage({
     type: 'success',
     message: '复制成功'
