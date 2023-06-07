@@ -9,7 +9,7 @@
   >
     <el-input class="input" v-model="name" placeholder="输入分组名称" />
     <template #footer>
-      <el-button class="footerBtn" color="#626aef" :disabled="!name" type="primary" @click="submit">确定</el-button>
+      <el-button class="footerBtn" color="#1B16FF" :disabled="!name" type="primary" @click="submit">确定</el-button>
     </template>
   </el-dialog>
 </template>

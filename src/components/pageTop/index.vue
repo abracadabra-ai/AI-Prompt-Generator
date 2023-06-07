@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed } from 'vue'
+import { reactive, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()

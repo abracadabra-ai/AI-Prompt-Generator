@@ -10,13 +10,23 @@ const router = express.Router();
  */
 router.get("/list", (req, res) => {
   let { id } = req.query;
-  CardService.find(id, (err, data) => {
-    if (err) {
-      responseClient(res, 500, -10000, "服务端异常", null);
-      return;
-    }
-    responseClient(res, 200, 0, "成功", data);
-  });
+  if (id) {
+    CardService.find(id, (err, data) => {
+      if (err) {
+        responseClient(res, 500, -10000, "服务端异常", null);
+        return;
+      }
+      responseClient(res, 200, 0, "成功", data);
+    });
+  } else {
+    CardService.all( (err, data) => {
+      if (err) {
+        responseClient(res, 500, -10000, "服务端异常", null);
+        return;
+      }
+      responseClient(res, 200, 0, "成功", data);
+    });
+  }
 });
 
 // 添加

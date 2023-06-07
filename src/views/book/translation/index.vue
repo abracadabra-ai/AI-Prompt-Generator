@@ -9,6 +9,7 @@
         placeholder="请输入中文"
         :resize="'none'"
         @change="getEN"
+        @blur="getEN"
         class="inputList__q--txt"
         ref="inputTxtRef"
       />
@@ -28,15 +29,36 @@
 </template>
 
 <script setup>
-import { ref, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance, onActivated } from 'vue'
 import { getMp3Url } from './youdao.js'
 import useClipboard from 'vue-clipboard3'
 import { ElMessage } from 'element-plus'
 
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
-$bus.on('selCard', (item) => {
-  inputTxt.value += `${item.name},`
+onActivated(() => {
+  // 是否在案例中跳过来
+  if (localStorage.getItem('caseInfo')) {
+    setCaseInfo()
+  }
+})
+
+// 是否在案例中跳过来
+const caseInfo = ref(null)
+const setCaseInfo = () => {
+  caseInfo.value = JSON.parse(localStorage.getItem('caseInfo'))
+  inputTxt.value = caseInfo.value.name
+  localStorage.removeItem('caseInfo')
+}
+
+$bus.on('selCard', (list) => {
+  inputTxt.value = ''
+  list.forEach(key => {
+    inputTxt.value += `${key.name},`
+  })
+  if (caseInfo.value) {
+    inputTxt.value = (caseInfo.value.name + `,${inputTxt.value}`)
+  }
 })
 
 // 复制
@@ -44,8 +66,14 @@ const { toClipboard } = useClipboard()
 const inputTxt = ref('')
 const outputTxt = ref('')
 
-const getEN = async () => {
-  outputTxt.value = await getMp3Url(inputTxt.value)
+
+const timer = null
+const getEN = () => {
+  timer && clearTimeout(timer)
+  timer = setTimeout(async () => {
+    // outputTxt.value = await getMp3Url(inputTxt.value)
+    console.log('翻译')
+  }, 1000)
 }
 
 

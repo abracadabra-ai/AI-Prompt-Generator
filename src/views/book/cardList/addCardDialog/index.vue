@@ -42,7 +42,7 @@
           </el-option>
           <div class="selectAdd" @click="addGroup">+新建分组</div>
         </el-select>
-        <el-button class="footer__btn"  color="#626aef" :disabled="isSubmit" type="primary" @click="submit">
+        <el-button class="footer__btn"  color="#1B16FF" :disabled="isSubmit" type="primary" @click="submit">
           {{ formData.id ? '更新' : '上传' }}
         </el-button>
       </span>
@@ -167,10 +167,13 @@ defineExpose({
 .box {
   display: flex;
   &__img {
+    height: 120px;
+    display: flex;
+    align-items: center;
     .avatar {
       &__img {
         width: 120px;
-        height: 120px;
+        max-height: 120px;
         display: block;
       }
     }

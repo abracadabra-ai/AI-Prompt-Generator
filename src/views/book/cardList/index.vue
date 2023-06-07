@@ -18,7 +18,7 @@
   <!-- 内容 -->
   <div class="cardList" v-if="cardList.length">
     <div
-      :class="`cardList__item ${ seCardlId === item.id && 'sel' }`"
+      :class="`cardList__item ${ item.sel && 'sel' }`"
       v-for="item in cardList"
       :key="item.id"
       @click="selCard(item)"
@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { ref, getCurrentInstance, computed } from 'vue'
+import { ref, getCurrentInstance, computed, onActivated } from 'vue'
 import AddCardDialog from './addCardDialog/index.vue'
 import { Get } from '@/utils/apis.js'
 const nodeFilePath = import.meta.env.VITE_NODE_PUBLIC_PATH
@@ -86,23 +86,53 @@ const getCardList = async () => {
   if (res.code === 0) {
     cardList.value = res.data.map((item) => {
       item.imageEx = `${nodeFilePath}${item.image}`
+      item.sel = false // 是否被选中
+
+      for (let key in selCardList) {
+        if (item.id === selCardList[key].id) {
+          item.sel = true
+          break
+        }
+      }
       return item
     })
   }
 }
 
-// 当前选中的卡片id
-const seCardlId = ref('')
-
 // 卡片编辑
-const editCard = async (item) => {
-  addCardDialog.value.open(item)
-}
+// const editCard = async (item) => {
+//   addCardDialog.value.open(item)
+// }
+
+
+// 当前选中的卡片列表
+const selCardList = []
+
+// 选择案例后清空勾选卡
+onActivated(() => {
+  // 是否在案例中跳过来
+  if (localStorage.getItem('caseInfo')) {
+    selCardList.length = 0
+    cardList && (cardList.value = cardList.value.map((item) => {
+      item.sel = false
+      return item
+    }))
+  }
+})
 
 // 选择卡片
 const selCard = async (item) => {
-  seCardlId.value = item.id
-  $bus.emit('selCard', item)
+  if (!item.sel) {
+    item.sel = true
+    selCardList.push(item)
+  } else {
+    item.sel = false
+    const index = selCardList.findIndex((i) => {
+      return i.id === item.id
+    })
+    selCardList.splice(index, 1)
+  }
+  $bus.emit('selCard', selCardList)
 }
 
 // 添加分类
@@ -171,8 +201,11 @@ getTagsList()
   &__item {
     padding: 10px;
     background-color: #FFFFFF;
+    border: 1px #FFFFFF solid;
     margin-right: 16px;
     margin-bottom: 16px;
+    width: 140px;
+    box-sizing: border-box;
 
     &--img {
       width: 120px;

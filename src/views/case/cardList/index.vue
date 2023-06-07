@@ -52,6 +52,10 @@ import AddCaseDialog from './addCaseDialog/index.vue'
 import { Get } from '@/utils/apis.js'
 import { ElMessage } from 'element-plus'
 import useClipboard from 'vue-clipboard3'
+import { useRouter } from 'vue-router'
+
+// 路由
+const router = useRouter()
 
 // 复制
 const { toClipboard } = useClipboard()
@@ -116,7 +120,10 @@ const getCaseList = async () => {
 
 // 编辑卡片提示词
 const edit = async (item) => {
-  addCaseDialog.value.open(item)
+  localStorage.setItem('caseInfo', JSON.stringify(item))
+  router.push({
+    path: '/book',
+  })
 }
 
 // 复杂功能
@@ -145,6 +152,7 @@ getTypeList()
     flex: 1;
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-end;
 
     &--item {
       background: #FFFFFF;
@@ -190,6 +198,7 @@ getTypeList()
   columns: 4;
   column-gap: 13px;
   margin-top: 20px;
+  padding-bottom: 40px;
 
   &__item {
     padding: 10px;
@@ -211,7 +220,7 @@ getTypeList()
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
-      line-height: 34px;
+      line-height: 26px;
     }
 
     &--btnList {

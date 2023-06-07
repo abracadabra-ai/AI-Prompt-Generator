@@ -23,6 +23,21 @@ export default {
   },
 
   /**
+   * 全部列表
+   * @param {*} callback 
+   */
+  all: (callback) => {
+    fs.readFile(dbPath, "utf8", (err, data) => {
+      if (err) {
+        callback(err);
+        return;
+      }
+      const list = JSON.parse(data).list;
+      callback(null, list);
+    });
+  },
+
+  /**
    * 详情
    * @param {*} id
    * @param {*} callback

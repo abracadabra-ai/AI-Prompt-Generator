@@ -23,24 +23,23 @@
         <el-input type="textarea" :rows="3" class="box__input--item" v-model="formData.name" placeholder="输入提示词" />
       </div>
     </div>
-    <template #footer>
-      <span class="footer">
-        <el-select v-model="formData.type_id" placeholder="选择分组" size="large">
-          <el-option
-            v-for="item in typeList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          >
-            <div class="select">
-              {{ item.name }}
-            </div>
-          </el-option>
-          <div class="selectAdd" @click="addType">+新增分组</div>
-        </el-select>
-        <el-button class="footer__btn"  color="#626aef" :disabled="isSubmit" type="primary" @click="submit">{{ formData.id ? '更新' : '上传' }}</el-button>
-      </span>
-    </template>
+
+    <div class="footer">
+      <el-select v-model="formData.type_id" placeholder="选择分组" size="large">
+        <el-option
+          v-for="item in typeList"
+          :key="item.id"
+          :label="item.name"
+          :value="item.id"
+        >
+          <div class="select">
+            {{ item.name }}
+          </div>
+        </el-option>
+        <div class="selectAdd" @click="addType">+新增分组</div>
+      </el-select>
+      <el-button class="footer__btn" color="#1B16FF" :disabled="isSubmit" type="primary" @click="submit">{{ formData.id ? '更新' : '上传' }}</el-button>
+    </div>
   </el-dialog>
 
   <!-- 添加弹框 -->
@@ -70,6 +69,10 @@ const imgError = computed(() => {
 const dialogVisible = ref(false)
 const handleClose = () => {
   dialogVisible.value = false
+  formData.id = ''
+  formData.name = ''
+  formData.image = ''
+  formData.type_id = ''
 }
 
 // 表单数据
@@ -143,26 +146,30 @@ defineExpose({
 .box {
   &__img {
     width: 100%;
+    display: flex;
+    align-items: center;
+    height: 371px;
     .avatar {
       width: 100%;
       &__img {
         width: 530px;
-        height: 371px;
+        max-height: 371px;
       }
     }
   }
   &__input {
-    margin-top: 20px;
+    margin-top: 16px;
   }
 }
 .footer {
   display: flex;
   justify-content: space-between;
+  margin-top: 16px;
   &__btn {
     width: 390px;
     height: 42px;
     margin-left: 20px;
-    margin-right: 10px;
+    // margin-right: 10px;
   }
 }
 
