@@ -48,6 +48,12 @@ const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 $bus.on('initCategorylist', () => {
   getTagsList()
 })
+$bus.on('clearCard', () => {
+  selCardList.length = 0
+  cardList.value.forEach((item) => {
+    item.sel = false
+  })
+})
 
 // 图片加载有问题
 const imgError = computed(() => {
@@ -125,14 +131,21 @@ const selCard = async (item) => {
   if (!item.sel) {
     item.sel = true
     selCardList.push(item)
+    $bus.emit('selCard', {
+      item,
+      type: 'add'
+    })
   } else {
     item.sel = false
     const index = selCardList.findIndex((i) => {
       return i.id === item.id
     })
     selCardList.splice(index, 1)
+    $bus.emit('selCard', {
+      item,
+      type: 'remove'
+    })
   }
-  $bus.emit('selCard', selCardList)
 }
 
 // 添加分类

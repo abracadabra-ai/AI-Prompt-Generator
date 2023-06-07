@@ -73,6 +73,8 @@ const handleClose = () => {
   formData.name = ''
   formData.image = ''
   formData.type_id = ''
+
+  imageUrl.value = ''
 }
 
 // 表单数据
@@ -149,6 +151,7 @@ defineExpose({
     display: flex;
     align-items: center;
     height: 371px;
+    background: #F7F8FF;
     .avatar {
       width: 100%;
       &__img {

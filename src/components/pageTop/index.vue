@@ -75,11 +75,12 @@ const selId = computed(() => {
   align-items: center;
   min-width: 1080px;
   background-color: #fff;
-  overflow-x: hidden;
+  overflow: hidden;
   z-index: 999;
   .logo {
     height: 44px;
     margin-left: 20px;
+    margin-right: 40px;
     img {
       width: 160px;
       height: 44px;
@@ -89,7 +90,8 @@ const selId = computed(() => {
   .list {
     display: flex;
     &__item {
-      padding: 0 30px;
+      // padding: 0 30px;
+      margin-right: 60px;
       cursor: pointer;
       font-family: 'Source Han Sans SC';
       &.sel {

@@ -49,6 +49,9 @@ export default defineConfig(({ mode }) => {
         '/type': {
           target: env.VITE_TARGET,
         },
+        '/template': {
+          target: env.VITE_TARGET,
+        },
       }
     }
   }

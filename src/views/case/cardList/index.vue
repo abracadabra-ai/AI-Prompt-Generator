@@ -114,7 +114,7 @@ const getCaseList = async () => {
     caseList.value = res.data.map((item) => {
       item.imageEx = `${nodeFilePath}${item.image}`
       return item
-    })
+    }).reverse()
   }
 }
 
