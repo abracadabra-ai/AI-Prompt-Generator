@@ -27,24 +27,22 @@
         <el-input class="box__input--item" v-model="formData.name" placeholder="输入中文提示词" />
       </div>
     </div>
-    <template #footer>
-      <span class="footer">
-        <el-select v-model="formData.category_id" placeholder="选择分类" size="large">
-          <el-option
-            v-for="item in categoryList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          >
-            {{ item.name }}
-          </el-option>
-          <div class="selectAdd" @click="addGroup">+新建分组</div>
-        </el-select>
-        <el-button :class="`footer__btn ${!isSubmit && 'nohover'}`" color="#1B16FF" :disabled="isSubmit" type="primary" @click="submit">
-          {{ formData.id ? '更新' : '上传' }}
-        </el-button>
-      </span>
-    </template>
+    <div class="footer">
+      <el-select v-model="formData.category_id" placeholder="选择分类" size="large">
+        <el-option
+          v-for="item in categoryList"
+          :key="item.id"
+          :label="item.name"
+          :value="item.id"
+        >
+          {{ item.name }}
+        </el-option>
+        <div class="selectAdd" @click="addGroup">+新建分组</div>
+      </el-select>
+      <el-button :class="`footer__btn ${!isSubmit && 'nohover'}`" color="#1B16FF" :disabled="isSubmit" type="primary" @click="submit">
+        {{ formData.id ? '更新' : '上传' }}
+      </el-button>
+    </div>
   </el-dialog>
 
   <add-category-dialog ref="addCategoryDialog" />
@@ -189,6 +187,8 @@ defineExpose({
 .footer {
   display: flex;
   justify-content: space-between;
+  padding-top: 20px;
+  align-items: center;
   &__btn {
     width: 390px;
     height: 42px;
@@ -210,5 +210,16 @@ defineExpose({
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
+}
+</style>
+<style lang="less">
+.el-dialog__headerbtn {
+  background-image: url(@/assets/img/book/close.png);
+  background-size: 25px 25px;
+  background-repeat: no-repeat;
+  background-position: center;
+  i {
+    display: none;
+  }
 }
 </style>

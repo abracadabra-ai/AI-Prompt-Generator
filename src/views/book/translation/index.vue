@@ -15,7 +15,7 @@
       />
       <div class="inputList__q--x" v-show="inputTxt" @click="clearInput"></div>
       <div class="inputList__q--up" v-if="templateList.length">
-        <el-dropdown :max-height="340">
+        <el-dropdown :max-height="340" trigger="click">
           <div class="up">
             <img src="@/assets/img/book/up.png" alt="">
             <div class="up__icon"></div>
@@ -43,6 +43,7 @@
         placeholder="英文翻译"
         :resize="'none'"
         readonly
+        ref="outputTxtRef"
       />
       <div class="inputList__a--copy" v-show="outputTxt" @click="copyOutput">复制</div>
       <div class="inputList__a--down" v-show="inputTxt" @click="saveTemplateName">
@@ -160,9 +161,11 @@ const saveUserInput = () => {
 
 
 const inputTxtRef = ref(null)
+const outputTxtRef = ref(null)
 // 清空
 const clearInput = () => {
   inputTxtRef.value.clear()
+  outputTxtRef.value.clear()
   showInputList.length = 0
   saveInputTxt()
   $bus.emit('clearCard')
@@ -236,7 +239,7 @@ getTemplateList()
     box-sizing: border-box;
     border: 1px solid #E7E7F2;
     border-radius: 2px;
-    padding: 10px 35px 20px 10px;
+    padding: 10px 45px 20px 10px;
 
     &--txt {
       font-size: 16px;
@@ -267,6 +270,11 @@ getTemplateList()
         position: relative;
         background-color: #ffffff;
         padding: 8px;
+        &:focus-visible {
+          outline: none;
+          background-color: #F7F8FF;
+          border-radius: 2px;
+        }
         img {
           width: 20px;
           height: 20px;
@@ -295,7 +303,7 @@ getTemplateList()
     box-sizing: border-box;
     border: 1px solid #E7E7F2;
     border-radius: 2px;
-    padding: 10px 35px 20px 10px;
+    padding: 10px 45px 20px 10px;
 
     &--txt {
       font-size: 16px;
@@ -344,5 +352,11 @@ getTemplateList()
 
 .dropdown {
   min-width: 100px;
+  &:deep(.el-dropdown-menu__item) {
+    &:focus {
+      color: #606266;
+      background-color: #F7F8FF;
+    }
+  }
 }
 </style>

@@ -5,6 +5,7 @@
     v-model="dialogVisible"
     width="570px"
     :before-close="handleClose"
+    class="dialog"
   >
     <div class="box">
       <div class="box__img">
@@ -41,7 +42,6 @@
 
   <!-- 添加弹框 -->
   <add-type-dialog ref="addTypeDialog" />
-
 </template>
 
 <script setup>
@@ -143,6 +143,7 @@ defineExpose({
 
 <style lang='less' scoped>
 .box {
+  margin-top: -20px;
   &__img {
     width: 100%;
     display: flex;
