@@ -23,7 +23,7 @@
         </el-upload>
       </div>
       <div class="box__input">
-        <el-input class="box__input--item" v-model="formData.name_en" placeholder="Enter the prompt " />
+        <el-input class="box__input--item" v-model="formData.name_en" placeholder="Enter the prompt" />
         <el-input class="box__input--item" v-model="formData.name" placeholder="输入中文提示词" />
       </div>
     </div>
@@ -36,9 +36,7 @@
             :label="item.name"
             :value="item.id"
           >
-            <div class="select">
-              {{ item.name }}
-            </div>
+            {{ item.name }}
           </el-option>
           <div class="selectAdd" @click="addGroup">+新建分组</div>
         </el-select>
@@ -78,7 +76,6 @@ const formData = reactive({
   image: '', // 图片路径
   category_id: '', // 分组id
 })
-
 
 // 默认图片
 const noneImg = computed(() => {
@@ -205,14 +202,6 @@ defineExpose({
     }
   }
 }
-
-// .select {
-//   &__img {
-//     width: 18px;
-//     height: 18px;
-//     margin-right: 6px;
-//   }
-// }
 
 .selectAdd {
   padding: 10px 32px 10px 20px;

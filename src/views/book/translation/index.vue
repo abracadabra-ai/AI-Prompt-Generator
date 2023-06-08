@@ -36,6 +36,7 @@
     </div>
     <div class="inputList__a">
       <el-input
+        class="inputList__a--txt"
         v-model="outputTxt"
         :rows="6"
         type="textarea"
@@ -237,6 +238,10 @@ getTemplateList()
     border-radius: 2px;
     padding: 10px 35px 20px 10px;
 
+    &--txt {
+      font-size: 16px;
+    }
+
     &--x {
       position: absolute;
       right: 20px;
@@ -248,7 +253,7 @@ getTemplateList()
       background-size: 100% 100%;
     }
     &:deep(.el-textarea__inner) {
-      height: 110px;
+      height: 100px;
       border: none;
       box-shadow: none;
     }
@@ -256,7 +261,7 @@ getTemplateList()
     &--up {
       position: absolute;
       left: 10px;
-      bottom: 0;
+      bottom: 10px;
 
       .up {
         position: relative;
@@ -292,6 +297,10 @@ getTemplateList()
     border-radius: 2px;
     padding: 10px 35px 20px 10px;
 
+    &--txt {
+      font-size: 16px;
+    }
+
     &--copy {
       position: absolute;
       right: 20px;
@@ -309,7 +318,7 @@ getTemplateList()
       border-radius: 2px;
     }
     &:deep(.el-textarea__inner) {
-      height: 110px;
+      height: 100px;
       border: none;
       box-shadow: none;
     }
@@ -317,7 +326,7 @@ getTemplateList()
     &--down {
       position: absolute;
       left: 10px;
-      bottom: 0;
+      bottom: 10px;
       .down {
         position: relative;
         background-color: #ffffff;

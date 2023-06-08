@@ -31,9 +31,7 @@
           :label="item.name"
           :value="item.id"
         >
-          <div class="select">
-            {{ item.name }}
-          </div>
+          {{ item.name }}
         </el-option>
         <div class="selectAdd" @click="addType">+新增分组</div>
       </el-select>
@@ -180,13 +178,6 @@ defineExpose({
   }
 }
 
-.select {
-  &__img {
-    width: 18px;
-    height: 18px;
-    margin-right: 6px;
-  }
-}
 .selectAdd {
   padding: 10px 32px 10px 20px;
   color: #1B16FF;
