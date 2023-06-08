@@ -42,7 +42,7 @@
           </el-option>
           <div class="selectAdd" @click="addGroup">+新建分组</div>
         </el-select>
-        <el-button class="footer__btn"  color="#1B16FF" :disabled="isSubmit" type="primary" @click="submit">
+        <el-button :class="`footer__btn ${!isSubmit && 'nohover'}`" color="#1B16FF" :disabled="isSubmit" type="primary" @click="submit">
           {{ formData.id ? '更新' : '上传' }}
         </el-button>
       </span>
@@ -173,7 +173,8 @@ defineExpose({
     .avatar {
       &__img {
         width: 120px;
-        max-height: 120px;
+        height: 120px;
+        object-fit: contain;
         display: block;
       }
     }
@@ -196,6 +197,12 @@ defineExpose({
     height: 42px;
     margin-left: 20px;
     margin-right: 10px;
+
+    &.nohover:hover {
+      background-color: #1B16FF; /* 取消背景色 */
+      color: #fff; /* 使用继承的文本颜色 */
+      border-color: none; /* 使用继承的边框颜色 */
+    }
   }
 }
 

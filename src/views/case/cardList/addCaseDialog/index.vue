@@ -13,7 +13,6 @@
           :action="`${nodeFilePath}/upload/save/case`"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload"
         >
           <img v-if="imageUrl" :src="imageUrl" class="avatar__img" :onerror="imgError" />
           <img v-else class="avatar__img" src="@/assets/img/case/none_up.png" />
@@ -38,7 +37,7 @@
         </el-option>
         <div class="selectAdd" @click="addType">+新增分组</div>
       </el-select>
-      <el-button class="footer__btn" color="#1B16FF" :disabled="isSubmit" type="primary" @click="submit">{{ formData.id ? '更新' : '上传' }}</el-button>
+      <el-button :class="`footer__btn ${!isSubmit && 'nohover'}`" color="#1B16FF" :disabled="isSubmit" type="primary" @click="submit">{{ formData.id ? '更新' : '上传' }}</el-button>
     </div>
   </el-dialog>
 
@@ -156,7 +155,8 @@ defineExpose({
       width: 100%;
       &__img {
         width: 530px;
-        max-height: 371px;
+        height: 371px;
+        object-fit: contain;
       }
     }
   }
@@ -172,7 +172,11 @@ defineExpose({
     width: 390px;
     height: 42px;
     margin-left: 20px;
-    // margin-right: 10px;
+    &.nohover:hover {
+      background-color: #1B16FF; /* 取消背景色 */
+      color: #fff; /* 使用继承的文本颜色 */
+      border-color: none; /* 使用继承的边框颜色 */
+    }
   }
 }
 
