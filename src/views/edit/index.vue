@@ -22,7 +22,7 @@
 
     <div class="menu__right">
       <!-- 编辑分组 -->
-      <div class="menu__right--btn edit">编辑分组</div>
+      <div class="menu__right--btn edit" @click="editGroup">编辑分组</div>
 
       <!-- 移动按钮 -->
       <el-dropdown :max-height="340" trigger="click">
@@ -44,11 +44,13 @@
       </el-dropdown>
 
       <!-- 删除按钮 -->
-      <div class="menu__right--btn del">批量删除</div>
+      <div class="menu__right--btn del" @click="delList">批量删除</div>
     </div>
   </div>
 
-  <table-list :list="cardList" ref="tableListRef" />
+  <table-list :list="cardList" ref="tableListRef" :tags="tags" @update="getCardList" />
+
+  <group-dialog ref="groupDialogRef" @updateTag="getTagsList" />
 
   <div class="footer">
     <div class="footer__btn cancel">取消</div>
@@ -61,6 +63,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
 import { Get, Post } from '@/utils/apis.js'
 import TableList from './tableList/index.vue'
+import GroupDialog from './groupDialog/index.vue'
 
 const nodeFilePath = import.meta.env.VITE_NODE_PUBLIC_PATH
 
@@ -103,8 +106,6 @@ const moveTag = (item) => {
     type: 'warning'
   }).then(async () => {
     // 确认按钮的回调函数
-    console.log('确认',  tableListRef.value.selList);
-
     const selList = tableListRef.value.selList.map((sel) => {
       sel.category_id = item.id // 分列id
 
@@ -123,6 +124,38 @@ const moveTag = (item) => {
       getCardList()
     }
   });
+}
+
+// 批量删除
+const delList = () => {
+  // 当前勾选的列表
+  if (!tableListRef.value.selList.length) {
+    ElMessage({
+      type: 'error',
+      message: '未勾选需要移动的项目'
+    })
+    return
+  }
+
+  ElMessageBox.confirm(`确定批量删除数据？？`, '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(async () => {
+    const selList = tableListRef.value.selList.map((sel) => {
+      return sel.id
+    })
+    const res = await Post('/card/deleteList', selList)
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '删除成功'
+      })
+
+      // 重新获取卡片数据
+      getCardList()
+    }
+  })
 }
 
 // 卡片列表
@@ -147,6 +180,12 @@ const tableListRef = ref(null)
 const selAll = () => {
   console.log('tableListRef', tableListRef)
   tableListRef.value.selAll()
+}
+
+// 编辑分组
+const groupDialogRef = ref(null)
+const editGroup = () => {
+  groupDialogRef.value.open(tags.value)
 }
 
 getTagsList()
@@ -186,6 +225,7 @@ getTagsList()
       border-radius: 2px;
       font-size: 14px;
       width: 92px;
+      cursor: pointer;
 
       &.del {
         color: #FF2559;
@@ -200,6 +240,7 @@ getTagsList()
     }
 
     .up {
+      cursor: pointer;
       position: relative;
       background-color: #ffffff;
       padding: 0 10px;

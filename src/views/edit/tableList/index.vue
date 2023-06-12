@@ -25,8 +25,8 @@
       <el-table-column fixed="right" label="操作" width="120">
         <template #default="scope">
           <div class="editBtn">
-            <img src="@/assets/img/edit/edit.png" />
-            <img src="@/assets/img/edit/del.png" />
+            <img src="@/assets/img/edit/edit.png" @click="editCard(scope.row)" />
+            <img src="@/assets/img/edit/del.png" @click="delCard(scope.row)" />
           </div>
         </template>
       </el-table-column>
@@ -39,13 +39,22 @@
       <img :src="floatImg" :onerror="imgError" alt="Big Image" />
     </div>
   </div>
+
+  <!-- 编辑弹框 -->
+  <add-card-dialog ref="addCardDialog" :categoryList="tags" @saveSuc="saveSuc" />
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
+import AddCardDialog from '@/views/book/cardList/addCardDialog/index.vue'
+import { Get } from '@/utils/apis.js'
+import { ElMessage, ElMessageBox } from 'element-plus'
+
+const emits = defineEmits(['update'])
 
 const props = defineProps({
-  list: Array
+  list: Array,
+  tags: Array
 })
 
 // table控件
@@ -82,6 +91,35 @@ const selList = ref([])
 // 选择变化
 const handleSelectionChange = (val) => {
   selList.value = val
+}
+
+// 修改分类
+const addCardDialog = ref(null)
+const editCard = (item) => {
+  addCardDialog.value.open(item)
+}
+
+// 修改成功
+const saveSuc = () => {
+  emits('update')
+}
+
+// 删除数据
+const delCard = async (item) => {
+  ElMessageBox.confirm(`确定删除：${item.name} ？`, '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(async () => {
+    const res = await Get(`/card/delete/${item.id}`)
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '删除成功'
+      })
+      emits('update')
+    }
+  })
 }
 
 // 暴露方法给父组件
