@@ -119,6 +119,38 @@ export default {
   },
 
   /**
+   * 批量修改
+   * @param {*} newList 需要修改的列表
+   * @param {*} callback
+   */
+  updateList: (newList, callback) => {
+    fs.readFile(dbPath, "utf8", (err, data) => {
+      if (err) {
+        callback(err);
+        return;
+      }
+      const list = JSON.parse(data).list; // 当前数据
+      const updatelist = list.map((item) => {
+        const obj = newList.filter((obj) => parseInt(obj.id) === parseInt(item.id))[0]
+        if (obj) {
+          return obj
+        }
+        return item;
+      });
+      const fileData = JSON.stringify({ list: updatelist });
+
+      console.log(7777, fileData)
+
+      fs.writeFile(dbPath, fileData, function (err) {
+        if (err) {
+          return callback(err);
+        }
+        callback(null, fileData);
+      });
+    });
+  },
+
+  /**
    * 删除
    * @param {*} id
    * @param {*} callback

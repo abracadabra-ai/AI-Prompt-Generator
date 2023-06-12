@@ -18,6 +18,12 @@ const routes = [
     name: 'case',
     component: () => import('@/views/case/index.vue'),
   },
+  // 修改页
+  {
+    path: '/edit',
+    name: 'edit',
+    component: () => import('@/views/edit/index.vue'),
+  },
 ]
 
 const router = createRouter({

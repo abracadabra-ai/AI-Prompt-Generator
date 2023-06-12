@@ -14,9 +14,6 @@
           :action="`${nodeFilePath}/upload/save/category`"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
-          :data="{
-            path: '/tag'
-          }"
         >
           <img v-if="imageUrl" :src="imageUrl" class="avatar__img" :onerror="imgError" />
           <img v-else class="avatar__img" :src="noneImg" />
@@ -109,7 +106,7 @@ const open = (item = null) => {
 const imageUrl = ref('')
 
 // 上传成功方法
-const handleAvatarSuccess = ( response, uploadFile) => {
+const handleAvatarSuccess = (response, uploadFile) => {
   imageUrl.value = nodeFilePath + response.data.path;
   formData.image = response.data.path
 }

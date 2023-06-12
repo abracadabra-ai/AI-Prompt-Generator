@@ -2,7 +2,7 @@
 <template>
   <div class="pageTop">
     <div class="logo">
-      <img src="./img/logo.png" alt="">
+      <img src="@/assets/img/pageTop/logo.png" alt="">
     </div>
     <div class="list">
       <div
@@ -15,6 +15,24 @@
         <img class="list__item--logo" v-show="selId === item.id"  :src="item.iconSel" alt="">
         {{ item.name }}
       </div>
+    </div>
+    <div class="right">
+      <el-dropdown :max-height="340" trigger="click">
+        <img class="right__menu" src="@/assets/img/pageTop/menu.png" alt="">
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item
+              v-for="item in menuList"
+              :key="item.id"
+              @click="toPage(item)"
+              class="dropdown"
+            >
+              <img :src="item.icon" alt="">
+              <span>{{ item.name }}</span>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -30,15 +48,31 @@ const routerList = reactive([
     id: 0,
     name: '魔法书',
     to: '/book',
-    icon: new URL('./img/book.png', import.meta.url).href,
-    iconSel: new URL('./img/book_sel.png', import.meta.url).href,
+    icon: new URL('@/assets/img/pageTop/book.png', import.meta.url).href,
+    iconSel: new URL('@/assets/img/pageTop/book_sel.png', import.meta.url).href,
   },
   {
     id: 1,
     name: '案例展示',
     to: '/case',
-    icon: new URL('./img/case.png', import.meta.url).href,
-    iconSel: new URL('./img/case_sel.png', import.meta.url).href,
+    icon: new URL('@/assets/img/pageTop/case.png', import.meta.url).href,
+    iconSel: new URL('@/assets/img/pageTop/case_sel.png', import.meta.url).href,
+  },
+])
+
+// 编辑导航
+const menuList = reactive([
+  {
+    id: 1,
+    name: '提示词管理',
+    icon: new URL('@/assets/img/pageTop/book_icon.png', import.meta.url).href,
+    to: '/edit',
+  },
+  {
+    id: 2,
+    name: '案例管理',
+    icon: new URL('@/assets/img/pageTop/case_icon.png', import.meta.url).href,
+    to: '/edit',
   },
 ])
 
@@ -54,9 +88,9 @@ const selId = computed(() => {
   // 当前选中路由
   let id = 0
   if (route.path === '/') {
-    id = routerList.filter((item) => item.to === '/book')[0].id
+    id = routerList.filter((item) => item.to === '/book')[0]?.id
   } else {
-    id = routerList.filter((item) => item.to === route.path)[0].id
+    id = routerList.filter((item) => item.to === route.path)[0]?.id
   }
   return id
 })
@@ -89,6 +123,7 @@ const selId = computed(() => {
 
   .list {
     display: flex;
+    flex: 1;
     &__item {
       // padding: 0 30px;
       margin-right: 60px;
@@ -117,6 +152,27 @@ const selId = computed(() => {
         margin-right: 4px;
       }
     }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    padding-right: 14px;
+    &__menu {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+.dropdown {
+  span {
+    color: #000;
+    font-size: 14px;
+  }
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
   }
 }
 </style>
