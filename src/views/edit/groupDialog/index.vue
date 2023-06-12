@@ -43,6 +43,20 @@ import { ref, computed } from 'vue'
 import { Post } from '@/utils/apis.js'
 import { ElMessage } from 'element-plus'
 
+// 当前编辑哪个
+const routeType = computed(() => {
+  return route.query.type
+})
+
+// 更新接口
+const tagsApi = computed(() => {
+  if (routeType.value === 'book') {
+    return '/category/updateList'
+  } else {
+    return '/type/updateList'
+  }
+})
+
 const emits = defineEmits(['updateTag'])
 
 // 删除
@@ -60,7 +74,7 @@ const addTag = () => {
 // 提交
 const submit = async () => {
   // 批量保存分组
-  const res = await Post('/category/updateList', {
+  const res = await Post(tagsApi.value, {
     list: list.value,
   })
   if (res.code === 0) {

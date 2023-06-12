@@ -67,12 +67,18 @@ const menuList = reactive([
     name: '提示词管理',
     icon: new URL('@/assets/img/pageTop/book_icon.png', import.meta.url).href,
     to: '/edit',
+    query: {
+      type: 'book'
+    }
   },
   {
     id: 2,
     name: '案例管理',
     icon: new URL('@/assets/img/pageTop/case_icon.png', import.meta.url).href,
     to: '/edit',
+    query: {
+      type: 'case'
+    }
   },
 ])
 
@@ -80,6 +86,7 @@ const menuList = reactive([
 const toPage = (item) => {
   router.push({
     path: item.to,
+    query: item.query
   })
 }
 
@@ -89,6 +96,8 @@ const selId = computed(() => {
   let id = 0
   if (route.path === '/') {
     id = routerList.filter((item) => item.to === '/book')[0]?.id
+  } else if (route.query?.type) {
+    id = routerList.filter((item) => item.to.includes(route.query?.type))[0]?.id
   } else {
     id = routerList.filter((item) => item.to === route.path)[0]?.id
   }

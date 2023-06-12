@@ -2,12 +2,10 @@
 	"list": [
 		{
 			"id": 2,
-			"name": "中文提示词333",
+			"name": "中文提示词333444",
 			"name_en": "prompt",
 			"image": "/server/public/upload/45b1391902c8ed09a5f2d8e00",
-			"category_id": 1,
-			"imageEx": "http://127.0.0.1:3000/server/public/upload/45b1391902c8ed09a5f2d8e00",
-			"sel": false
+			"category_id": 1
 		},
 		{
 			"name": "中文提示词44445",

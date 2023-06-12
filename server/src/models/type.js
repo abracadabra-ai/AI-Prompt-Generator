@@ -114,6 +114,38 @@ export default {
   },
 
   /**
+   * 批量修改
+   * @param {*} newList 当前数据
+   * @param {*} callback
+   */
+  updateList: (newList, callback) => {
+    fs.readFile(dbPath, "utf8", (err, data) => {
+      if (err) {
+        callback(err);
+        return;
+      }
+      const list = newList; // 当前数据
+
+      let maxId = list.sort((a, b) => +b.id - +a.id)[0].id
+      const updatelist = list.map((item) => {
+        if (!item.id) {
+          maxId += 1
+          item.id = maxId
+        }
+        return item;
+      }).sort((a, b) => +a.id - +b.id)
+
+      const fileData = JSON.stringify({ list: updatelist }, null, '\t');
+      fs.writeFile(dbPath, fileData, function (err) {
+        if (err) {
+          return callback(err);
+        }
+        callback(null, fileData);
+      });
+    });
+  },
+
+  /**
    * 删除
    * @param {*} id
    * @param {*} callback

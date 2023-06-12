@@ -48,7 +48,9 @@
     </div>
   </div>
 
-  <table-list :list="cardList" ref="tableListRef" :tags="tags" @update="getCardList" />
+  <table-list v-if="routeType === 'book'" :list="cardList" ref="tableListRef" :tags="tags" @update="getCardList" />
+
+  <!-- <table-list v-if="routeType === 'book'" :list="cardList" ref="tableListRef" :tags="tags" @update="getCardList" /> -->
 
   <group-dialog ref="groupDialogRef" @updateTag="getTagsList" />
 
@@ -60,10 +62,45 @@
 
 <script setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { Get, Post } from '@/utils/apis.js'
 import TableList from './tableList/index.vue'
 import GroupDialog from './groupDialog/index.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+// 当前编辑哪个
+const routeType = computed(() => {
+  console.log(9999, route)
+  return route.query.type
+})
+
+// 分类接口
+const tagsApi = computed(() => {
+  if (routeType.value === 'book') {
+    return '/category/list'
+  } else {
+    return '/type/list'
+  }
+})
+
+// 列表接口
+const ListApi = computed(() => {
+  if (routeType.value === 'book') {
+    return {
+      updateList: '/card/updateList',
+      deleteList: '/card/deleteList',
+      list: '/card/list',
+    }
+  } else {
+    return {
+      updateList: '/case/updateList',
+      deleteList: '/case/deleteList',
+      list: '/case/list',
+    }
+  }
+})
 
 const nodeFilePath = import.meta.env.VITE_NODE_PUBLIC_PATH
 
@@ -75,7 +112,7 @@ const tagsId = ref(0)
 
 // 获取分类
 const getTagsList = async () => {
-  const res = await Get('/category/list')
+  const res = await Get(tagsApi.value)
   if (res.code === 0) {
     tags.value = res.data
     tagsId.value = tags.value[0].id
@@ -112,7 +149,7 @@ const moveTag = (item) => {
       return sel
     })
 
-    const res = await Post('/card/updateList', selList)
+    const res = await Post(ListApi.value.updateList, selList)
 
     if (res.code === 0) {
       ElMessage({
@@ -145,7 +182,7 @@ const delList = () => {
     const selList = tableListRef.value.selList.map((sel) => {
       return sel.id
     })
-    const res = await Post('/card/deleteList', selList)
+    const res = await Post(ListApi.value.deleteList, selList)
     if (res.code === 0) {
       ElMessage({
         type: 'success',
@@ -163,7 +200,7 @@ const cardList = ref([])
 
 // 获取卡片数据
 const getCardList = async () => {
-  const res = await Get('/card/list', {
+  const res = await Get(ListApi.value.list, {
     id: tagsId.value,
   })
   if (res.code === 0) {
@@ -188,7 +225,12 @@ const editGroup = () => {
   groupDialogRef.value.open(tags.value)
 }
 
-getTagsList()
+watch(() => route.query.type, (newValue, oldValue) => {
+  // 参数发生变化时的逻辑
+  getTagsList();
+})
+
+getTagsList();
 </script>
 
 <style lang='less' scoped>

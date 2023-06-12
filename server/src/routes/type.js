@@ -6,7 +6,7 @@ const router = express.Router();
 
 /**
  * 列表
- * id: category 中的 分类id
+ * id: type 中的 分类id
  * 没有id: 返回全部数据
  */
 router.get("/list", (req, res) => {
@@ -82,6 +82,19 @@ router.post("/update", (req, res) => {
     return;
   }
   TypeService.update(req.body, function (err, data) {
+    if (err) {
+      responseClient(res, 500, -10000, "服务端异常", null);
+      return;
+    }
+    responseClient(res, 200, 0, "成功", data);
+  });
+});
+
+// 批量更新
+router.post("/updateList", (req, res) => {
+  const { list } = req.body;
+
+  TypeService.updateList(list, function (err, data) {
     if (err) {
       responseClient(res, 500, -10000, "服务端异常", null);
       return;
