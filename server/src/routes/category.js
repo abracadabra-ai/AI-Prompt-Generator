@@ -68,6 +68,19 @@ router.put("/update", (req, res) => {
   });
 });
 
+// 批量更新
+router.post("/updateList", (req, res) => {
+  const { list } = req.body;
+
+  CategoryService.updateList(list, function (err, data) {
+    if (err) {
+      responseClient(res, 500, -10000, "服务端异常", null);
+      return;
+    }
+    responseClient(res, 200, 0, "成功", data);
+  });
+});
+
 // 删除
 router.delete("/delete/:id", (req, res) => {
   const id = req.params.id;  

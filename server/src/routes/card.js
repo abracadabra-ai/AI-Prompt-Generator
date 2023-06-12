@@ -103,9 +103,25 @@ router.post("/update", (req, res) => {
 });
 
 // 删除
-router.delete("/delete/:id", (req, res) => {
+router.get("/delete/:id", (req, res) => {
   const id = req.params.id;
   CardService.delete(id, (err, data) => {
+    if (err) {
+      responseClient(res, 500, -10000, "服务端异常", null);
+      return;
+    }
+    if (data) {
+      responseClient(res, 200, 0, "成功", data);
+    } else {
+      responseClient(res, 200, 1, "查无数据", data);
+    }
+  });
+});
+
+// 批量删除
+router.post("/deleteList", (req, res) => {
+  const ids = req.body;
+  CardService.deleteList(ids, (err, data) => {
     if (err) {
       responseClient(res, 500, -10000, "服务端异常", null);
       return;
