@@ -1,27 +1,11 @@
 {
 	"list": [
 		{
-			"id": 2,
-			"name": "中文提示词333444",
-			"name_en": "prompt",
-			"image": "/server/public/upload/45b1391902c8ed09a5f2d8e00",
-			"category_id": 1
-		},
-		{
 			"name": "中文提示词44445",
 			"name_en": "prompt",
 			"image": "/server/public/upload/45b1391902c8ed09a5f2d8e00",
 			"category_id": 3,
 			"id": 3
-		},
-		{
-			"name": "中文提示词",
-			"name_en": "prompt",
-			"image": "/upload/category/icon.png",
-			"category_id": 1,
-			"id": 4,
-			"imageEx": "http://127.0.0.1:3000/upload/category/icon.png",
-			"sel": false
 		},
 		{
 			"name": "xxx",
@@ -33,18 +17,11 @@
 			"sel": false
 		},
 		{
-			"name": "ss",
-			"name_en": "cc",
+			"id": 6,
+			"name": "起手式ss",
+			"name_en": "eeeeeeee",
 			"image": "/upload/tag/d1.png",
-			"category_id": 2,
-			"id": 6
-		},
-		{
-			"name": "ss",
-			"name_en": "cc11",
-			"image": "/upload/category/底部 2@2x.png",
-			"category_id": 1,
-			"id": 7
+			"category_id": 1
 		},
 		{
 			"name": "ttt",

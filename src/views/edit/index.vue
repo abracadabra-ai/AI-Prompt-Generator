@@ -3,7 +3,7 @@
   <div class="menu">
     <div class="menu__left">
       <div class="menu__left--allSel">
-        <el-checkbox @click="selAll" />
+        <el-checkbox @change="handleCheckAllChange" v-model="checkAll" />
       </div>
       <div class="menu__left--filter">
         <el-select v-model="tagsId" placeholder="请选择">
@@ -48,16 +48,14 @@
     </div>
   </div>
 
-  <table-list v-if="routeType === 'book'" :list="cardList" ref="tableListRef" :tags="tags" @update="getCardList" />
-
-  <!-- <table-list v-if="routeType === 'book'" :list="cardList" ref="tableListRef" :tags="tags" @update="getCardList" /> -->
+  <table-list :list="cardList" ref="tableListRef" :tags="tags" @update="getCardList" @clearSelAll="clearSelAll" @selAll="selAll" />
 
   <group-dialog ref="groupDialogRef" @updateTag="getTagsList" />
 
-  <div class="footer">
+  <!-- <div class="footer">
     <div class="footer__btn cancel">取消</div>
     <div class="footer__btn submit">保存</div>
-  </div>
+  </div> -->
 </template>
 
 <script setup>
@@ -70,9 +68,8 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-// 当前编辑哪个
+// 当前编辑: book魔法书，case案例
 const routeType = computed(() => {
-  console.log(9999, route)
   return route.query.type
 })
 
@@ -140,7 +137,7 @@ const moveTag = (item) => {
   ElMessageBox.confirm(`确定移动到：${item.name}`, '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
   }).then(async () => {
     // 确认按钮的回调函数
     const selList = tableListRef.value.selList.map((sel) => {
@@ -177,7 +174,7 @@ const delList = () => {
   ElMessageBox.confirm(`确定批量删除数据？？`, '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
   }).then(async () => {
     const selList = tableListRef.value.selList.map((sel) => {
       return sel.id
@@ -214,9 +211,20 @@ const getCardList = async () => {
 
 // 全选
 const tableListRef = ref(null)
-const selAll = () => {
-  console.log('tableListRef', tableListRef)
+const checkAll = ref(false)
+const handleCheckAllChange = (val) => {
+  checkAll.value = val
   tableListRef.value.selAll()
+}
+
+// 取消全选
+const clearSelAll = () => {
+  checkAll.value = false
+}
+
+// 取消全选
+const selAll = () => {
+  checkAll.value = true
 }
 
 // 编辑分组
@@ -352,5 +360,4 @@ getTagsList();
     }
   }
 }
-
 </style>

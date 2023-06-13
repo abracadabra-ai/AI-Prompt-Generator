@@ -64,7 +64,7 @@ const routerList = reactive([
 const menuList = reactive([
   {
     id: 1,
-    name: '提示词管理',
+    name: '魔法书管理',
     icon: new URL('@/assets/img/pageTop/book_icon.png', import.meta.url).href,
     to: '/edit',
     query: {

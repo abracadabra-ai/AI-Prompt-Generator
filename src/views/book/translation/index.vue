@@ -233,7 +233,7 @@ getTemplateList()
 
   &__q {
     width: 530px;
-    height: 170px;
+    height: 200px;
     position: relative;
     background-color: #ffffff;
     box-sizing: border-box;
@@ -243,6 +243,7 @@ getTemplateList()
 
     &--txt {
       font-size: 16px;
+      caret-color: #1B16FF;
     }
 
     &--x {
@@ -256,7 +257,7 @@ getTemplateList()
       background-size: 100% 100%;
     }
     &:deep(.el-textarea__inner) {
-      height: 100px;
+      height: 130px;
       border: none;
       box-shadow: none;
     }
@@ -297,7 +298,7 @@ getTemplateList()
 
   &__a {
     width: 530px;
-    height: 170px;
+    height: 200px;
     position: relative;
     background-color: #ffffff;
     box-sizing: border-box;
@@ -326,7 +327,7 @@ getTemplateList()
       border-radius: 2px;
     }
     &:deep(.el-textarea__inner) {
-      height: 100px;
+      height: 130px;
       border: none;
       box-shadow: none;
     }
