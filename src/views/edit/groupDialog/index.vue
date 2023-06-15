@@ -42,7 +42,9 @@
 import { ref, computed } from 'vue'
 import { Post } from '@/utils/apis.js'
 import { ElMessage } from 'element-plus'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 // 当前编辑哪个
 const routeType = computed(() => {
   return route.query.type
