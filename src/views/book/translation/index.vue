@@ -29,9 +29,9 @@
               >
                 {{ item.template_name }}
               </el-dropdown-item>
-              <el-dropdown-item @click="editTemplate">
+              <!-- <el-dropdown-item @click="editTemplate">
                 <div class="selectAdd">+编辑起手式</div>
-              </el-dropdown-item>
+              </el-dropdown-item> -->
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -243,14 +243,14 @@ const getTemplateList = async () => {
 }
 
 // 编辑起手式
-const editTemplate = () => {
-  router.push({
-    path: '/edit',
-    query: {
-      type: 'template'
-    }
-  })
-}
+// const editTemplate = () => {
+//   router.push({
+//     path: '/edit',
+//     query: {
+//       type: 'template'
+//     }
+//   })
+// }
 
 // 获取模板
 getTemplateList()

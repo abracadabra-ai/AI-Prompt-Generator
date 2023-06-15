@@ -80,6 +80,15 @@ const menuList = reactive([
       type: 'case'
     }
   },
+  {
+    id: 3,
+    name: '模板',
+    icon: new URL('@/assets/img/pageTop/case_icon.png', import.meta.url).href,
+    to: '/edit',
+    query: {
+      type: 'template'
+    }
+  },
 ])
 
 // 跳转页面

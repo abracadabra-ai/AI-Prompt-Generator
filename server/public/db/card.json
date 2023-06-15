@@ -49,6 +49,13 @@
 			"category_id": 4,
 			"imageEx": "http://127.0.0.1:3000",
 			"sel": false
+		},
+		{
+			"id": 13,
+			"name": "1",
+			"name_en": "aaa",
+			"image": "",
+			"category_id": 1
 		}
 	]
 }
