@@ -46,7 +46,23 @@ router.post("/save", (req, res) => {
   });
 });
 
-// // 详情
+// 批量删除
+router.post("/deleteList", (req, res) => {
+  const ids = req.body;
+  TemplateService.deleteList(ids, (err, data) => {
+    if (err) {
+      responseClient(res, 500, -10000, "服务端异常", null);
+      return;
+    }
+    if (data) {
+      responseClient(res, 200, 0, "成功", data);
+    } else {
+      responseClient(res, 200, 1, "查无数据", data);
+    }
+  });
+});
+
+// 详情
 // router.get("/detail/:id", (req, res) => {
 //   const id = req.params.id;
 //   TemplateService.detail(id, (err, data) => {
@@ -62,40 +78,40 @@ router.post("/save", (req, res) => {
 //   });
 // });
 
-// // 更新
-// router.post("/update", (req, res) => {
-//   let { id, name } = req.body;
-//   if (!id) {
-//     responseClient(res, 400, 2, "id不能为空");
-//     return;
-//   }
-//   if (!name) {
-//     responseClient(res, 400, 2, "模板名称不能为空");
-//     return;
-//   }
-//   TemplateService.update(req.body, function (err, data) {
-//     if (err) {
-//       responseClient(res, 500, -10000, "服务端异常", null);
-//       return;
-//     }
-//     responseClient(res, 200, 0, "成功", data);
-//   });
-// });
+// 更新
+router.post("/update", (req, res) => {
+  let { id, name } = req.body;
+  if (!id) {
+    responseClient(res, 400, 2, "id不能为空");
+    return;
+  }
+  if (!name) {
+    responseClient(res, 400, 2, "模板名称不能为空");
+    return;
+  }
+  TemplateService.update(req.body, function (err, data) {
+    if (err) {
+      responseClient(res, 500, -10000, "服务端异常", null);
+      return;
+    }
+    responseClient(res, 200, 0, "成功", data);
+  });
+});
 
-// // 删除
-// router.delete("/delete/:id", (req, res) => {
-//   const id = req.params.id;
-//   TemplateService.delete(id, (err, data) => {
-//     if (err) {
-//       responseClient(res, 500, -10000, "服务端异常", null);
-//       return;
-//     }
-//     if (data) {
-//       responseClient(res, 200, 0, "成功", data);
-//     } else {
-//       responseClient(res, 200, 1, "查无数据", data);
-//     }
-//   });
-// });
+// 删除
+router.get("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  TemplateService.delete(id, (err, data) => {
+    if (err) {
+      responseClient(res, 500, -10000, "服务端异常", null);
+      return;
+    }
+    if (data) {
+      responseClient(res, 200, 0, "成功", data);
+    } else {
+      responseClient(res, 200, 1, "查无数据", data);
+    }
+  });
+});
 
 export default router;

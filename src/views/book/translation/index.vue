@@ -29,6 +29,9 @@
               >
                 {{ item.template_name }}
               </el-dropdown-item>
+              <el-dropdown-item @click="editTemplate">
+                <div class="selectAdd">+编辑起手式</div>
+              </el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -55,7 +58,7 @@
     </div>
   </div>
 
-  <template-dialog ref="templateDialog" @saveSuc="saveTemplate" />
+  <add-template-dialog ref="templateDialog" @saveSuc="saveTemplate" />
 </template>
 
 <script setup>
@@ -63,9 +66,10 @@ import { ref, getCurrentInstance, onActivated } from 'vue'
 import { getMp3Url } from './youdao.js'
 import useClipboard from 'vue-clipboard3'
 import { ElMessage } from 'element-plus'
-import TemplateDialog from './templateDialog/index.vue'
+import AddTemplateDialog from './addTemplateDialog/index.vue'
 import { Get, Post } from '@/utils/apis.js'
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
 onActivated(() => {
@@ -73,6 +77,7 @@ onActivated(() => {
   if (localStorage.getItem('caseInfo')) {
     setCaseInfo()
   }
+  getTemplateList()
 })
 
 // 是否在案例中跳过来
@@ -99,7 +104,6 @@ $bus.on('selCard', ({item, type}) => {
    * item: 传入数据
    * type: add 新增，remove:删减
    */
-  console.log('item', item, type)
   if (type === 'add') {
     item.type = 'card'
     showInputList.push(item)
@@ -174,8 +178,6 @@ const saveUserInput = () => {
   } else {
     showInputList.length = 0
   }
-
-  console.log('show:', showInputList)
 }
 
 
@@ -238,6 +240,16 @@ const getTemplateList = async () => {
   if (res.code === 0) {
     templateList.value = res.data
   }
+}
+
+// 编辑起手式
+const editTemplate = () => {
+  router.push({
+    path: '/edit',
+    query: {
+      type: 'template'
+    }
+  })
 }
 
 // 获取模板
@@ -378,5 +390,14 @@ getTemplateList()
       background-color: #F7F8FF;
     }
   }
+}
+
+.selectAdd {
+  padding: 10px 0;
+  color: #1B16FF;
+  font-family: 'Source Han Sans SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
 }
 </style>

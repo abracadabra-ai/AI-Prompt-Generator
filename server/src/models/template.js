@@ -142,4 +142,29 @@ export default {
       });
     });
   },
+  /**
+   * 批量删除
+   * @param {*} ids 需要删除的id列表
+   * @param {*} callback
+   */
+  deleteList: (ids, callback) => {
+    fs.readFile(dbPath, "utf8", (err, data) => {
+      if (err) {
+        return callback(err);
+      }
+      let list = JSON.parse(data).list;
+      const updatelist = list.filter((item) => {
+        if (!ids.includes(parseInt(item.id))) {
+          return item;
+        }
+      });
+      const fileData = JSON.stringify({ list: updatelist }, null, '\t');
+      fs.writeFile(dbPath, fileData, function (err) {
+        if (err) {
+          return callback(err);
+        }
+        callback(null, fileData);
+      });
+    });
+  },
 };

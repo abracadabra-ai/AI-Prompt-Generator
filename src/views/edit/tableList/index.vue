@@ -21,6 +21,13 @@
           >
         </template>
       </el-table-column>
+      <el-table-column prop="template_name" v-if="routeType === 'template'" label="模板名称" show-overflow-tooltip>
+        <template #default="scope">
+          <p class="list__content">
+            {{ scope.row.template_name }}
+          </p>
+        </template>
+      </el-table-column>
       <el-table-column prop="name_en" v-if="routeType === 'book'" label="英文" show-overflow-tooltip>
         <template #default="scope">
           <p class="list__content">
@@ -59,12 +66,16 @@
 
   <!-- 案例编辑弹框 -->
   <add-case-dialog ref="addCaseDialog" :type-list="tags" @saveSuc="saveSuc" />
+
+  <!-- 模板编辑弹框 -->
+  <edit-template-dialog ref="editTemplateDialog" @saveSuc="saveSuc" />
 </template>
 
 <script setup>
 import { ref, computed, watch } from 'vue'
 import AddCardDialog from '@/views/book/cardList/addCardDialog/index.vue'
 import AddCaseDialog from '@/views/case/cardList/addCaseDialog/index.vue'
+import EditTemplateDialog from '@/views/book/translation/editTemplateDialog/index.vue'
 import { Get } from '@/utils/apis.js'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRoute } from 'vue-router'
@@ -140,9 +151,12 @@ watch(() =>
 // 修改分类
 const addCardDialog = ref(null) // 魔法书弹框
 const addCaseDialog = ref(null)
+const editTemplateDialog = ref(null)
 const editCard = (item) => {
   if (routeType.value === 'book') {
     addCardDialog.value.open(item)
+  } else if (routeType.value === 'template') {
+    editTemplateDialog.value.open(item)
   } else {
     addCaseDialog.value.open(item)
   }
@@ -160,7 +174,7 @@ const delCard = async (item) => {
     cancelButtonText: '取消',
     type: 'warning',
   }).then(async () => {
-    const res = await Get(`/card/delete/${item.id}`)
+    const res = await Get(`/${ routeType.value }/delete/${item.id}`)
     if (res.code === 0) {
       ElMessage({
         type: 'success',

@@ -5,7 +5,7 @@
       <div class="menu__left--allSel">
         <el-checkbox @change="handleCheckAllChange" v-model="checkAll" />
       </div>
-      <div class="menu__left--filter">
+      <div class="menu__left--filter" v-if="routeType !== 'template'">
         <el-select v-model="tagsId" placeholder="请选择">
           <el-option
             v-for="item in tags"
@@ -22,10 +22,10 @@
 
     <div class="menu__right">
       <!-- 编辑分组 -->
-      <div class="menu__right--btn edit" @click="editGroup">编辑分组</div>
+      <div class="menu__right--btn edit" @click="editGroup" v-if="routeType !== 'template'">编辑分组</div>
 
       <!-- 移动按钮 -->
-      <el-dropdown :max-height="340" trigger="click">
+      <el-dropdown :max-height="340" trigger="click" v-if="routeType !== 'template'">
         <div class="up">
           移动到
           <div class="up__icon"></div>
@@ -77,6 +77,8 @@ const routeType = computed(() => {
 const tagsApi = computed(() => {
   if (routeType.value === 'book') {
     return '/category/list'
+  } else if (routeType.value === 'template') {
+    return '/template/list'
   } else {
     return '/type/list'
   }
@@ -89,6 +91,12 @@ const ListApi = computed(() => {
       updateList: '/card/updateList',
       deleteList: '/card/deleteList',
       list: '/card/list',
+    }
+  } else if (routeType.value === 'template') {
+    return {
+      updateList: '/template/updateList',
+      deleteList: '/template/deleteList',
+      list: '/template/list',
     }
   } else {
     return {
@@ -280,17 +288,18 @@ getTagsList();
       font-size: 14px;
       width: 92px;
       cursor: pointer;
+      border: 1px solid #E7E7F2;
 
       &.del {
         color: #FF2559;
-        border: 1px solid #FF2559;
+        // border: 1px solid #FF2559;
         margin-left: 20px;
         border-radius: 0;
         box-sizing: border-box;
       }
       &.edit {
         color: #2E2F33;
-        border: 1px solid #E7E7F2;
+        // border: 1px solid #E7E7F2;
         margin-right: 20px;
       }
     }
