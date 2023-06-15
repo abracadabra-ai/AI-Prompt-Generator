@@ -10,7 +10,7 @@ const router = express.Router();
  */
 router.get("/list", (req, res) => {
   let { id } = req.query;
-  if (id) {
+  if (+id) {
     CardService.find(id, (err, data) => {
       if (err) {
         responseClient(res, 500, -10000, "服务端异常", null);

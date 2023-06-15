@@ -1,13 +1,6 @@
 {
 	"list": [
 		{
-			"name": "中文提示词44445",
-			"name_en": "prompt",
-			"image": "/server/public/upload/45b1391902c8ed09a5f2d8e00",
-			"category_id": 3,
-			"id": 3
-		},
-		{
 			"name": "xxx",
 			"name_en": "prompt",
 			"image": "/upload/tag/icon.png",

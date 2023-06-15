@@ -76,16 +76,21 @@ onActivated(() => {
 })
 
 // 是否在案例中跳过来
-const caseInfo = ref(null)
 const setCaseInfo = () => {
   caseInfo.value = JSON.parse(localStorage.getItem('caseInfo'))
   caseInfo.value.type = 'case'
 
-  showInputList.length = 0
-  showInputList.push(caseInfo.value)
   localStorage.removeItem('caseInfo')
 
   saveInputTxt()
+
+  // 输入英文框翻译中文
+  setOutputTxt(caseInfo.value)
+}
+
+const setOutputTxt = (item) => {
+  outputTxt.value = item.name
+  getCN()
 }
 
 const showInputList = []
@@ -127,6 +132,20 @@ const getEN = () => {
   timer = setTimeout(async () => {
     outputTxt.value = await getMp3Url(inputTxt.value)
     console.log('翻译')
+  }, 500)
+}
+
+const caseInfo = ref(null)
+const getCN = () => {
+  timer && clearTimeout(timer)
+  timer = setTimeout(async () => {
+    inputTxt.value = await getMp3Url(outputTxt.value, 'zh-CHS', 'en')
+
+    console.log(caseInfo.value)
+    caseInfo.value.name = inputTxt.value
+    showInputList.length = 0
+    showInputList.push(caseInfo.value)
+    console.log('翻译中文')
   }, 500)
 }
 

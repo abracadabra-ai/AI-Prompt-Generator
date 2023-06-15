@@ -112,6 +112,10 @@ const getTagsList = async () => {
   const res = await Get(tagsApi.value)
   if (res.code === 0) {
     tags.value = res.data
+    tags.value.unshift({
+      id: 0,
+      name: '全部',
+    })
     tagsId.value = tags.value[0].id
     getCardList(tagsId.value)
   }
@@ -281,6 +285,8 @@ getTagsList();
         color: #FF2559;
         border: 1px solid #FF2559;
         margin-left: 20px;
+        border-radius: 0;
+        box-sizing: border-box;
       }
       &.edit {
         color: #2E2F33;

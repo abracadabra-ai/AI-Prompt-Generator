@@ -78,7 +78,7 @@ export default {
       list.push(obj);
       const fileData = JSON.stringify({
         list,
-      });
+      }, null, '\t');
       fs.writeFile(dbPath, fileData, function (err) {
         if (err) {
           return callback(err);
@@ -107,7 +107,7 @@ export default {
         }
         return item;
       });
-      const fileData = JSON.stringify({ list: updatelist });
+      const fileData = JSON.stringify({ list: updatelist }, null, '\t');
       fs.writeFile(dbPath, fileData, function (err) {
         if (err) {
           return callback(err);
@@ -133,7 +133,7 @@ export default {
         return callback(null, null);
       }
       list = list.filter((item) => parseInt(item.id) !== parseInt(id));
-      const fileData = JSON.stringify({ list });
+      const fileData = JSON.stringify({ list }, null, '\t');
       fs.writeFile(dbPath, fileData, function (err) {
         if (err) {
           return callback(err);

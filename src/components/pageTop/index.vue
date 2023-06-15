@@ -168,8 +168,8 @@ const selId = computed(() => {
     align-items: center;
     padding-right: 14px;
     &__menu {
-      width: 32px;
-      height: 32px;
+      width: 20px;
+      height: 20px;
     }
   }
 }

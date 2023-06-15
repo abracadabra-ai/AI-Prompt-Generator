@@ -184,7 +184,7 @@ defineExpose({
   width: 1280px;
   margin: 0 auto 58px;
   &:deep(.el-table__row) {
-    height: 72px;
+    height: 62px;
   }
   // 背景色
   &:deep(.el-table__body, .el-table__expanded-cell) {
