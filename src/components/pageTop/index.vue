@@ -82,7 +82,7 @@ const menuList = reactive([
   },
   {
     id: 3,
-    name: '模板',
+    name: '起手式',
     icon: new URL('@/assets/img/pageTop/case_icon.png', import.meta.url).href,
     to: '/edit',
     query: {
