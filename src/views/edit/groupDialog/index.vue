@@ -75,8 +75,6 @@ const addTag = () => {
 
 // 提交
 const submit = async () => {
-  console.log(999, list.value)
-  debugger
   // 批量保存分组
   const res = await Post(tagsApi.value, {
     list: list.value,
@@ -101,7 +99,7 @@ const dialogVisible = ref(false)
 
 const list = ref([])
 const open = (tags) => {
-  const items = tags.filter((item) => item.id)
+  const items = tags.filter((item) => item.id) // 过滤掉’全部‘:id=0
   list.value = [...items]
   dialogVisible.value = true
 }
