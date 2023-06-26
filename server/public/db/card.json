@@ -1,13 +1,11 @@
 {
 	"list": [
 		{
+			"id": 5,
 			"name": "xxx",
 			"name_en": "prompt",
-			"image": "/upload/tag/icon.png",
-			"category_id": 11,
-			"id": 5,
-			"imageEx": "http://127.0.0.1:3000/upload/tag/icon.png",
-			"sel": false
+			"image": "/upload/category/test.gif",
+			"category_id": 11
 		},
 		{
 			"id": 6,
