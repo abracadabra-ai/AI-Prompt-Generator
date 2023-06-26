@@ -1,10 +1,10 @@
 {
 	"list": [
 		{
-			"id": 1,
-			"name": "cs44",
+			"template_name": "1",
+			"name": "cs",
 			"name_en": "123",
-			"template_name": "133555"
+			"id": 1
 		},
 		{
 			"template_name": "123",
@@ -31,9 +31,9 @@
 			"id": 5
 		},
 		{
-			"template_name": "测试",
-			"name": "333",
-			"name_en": "333",
+			"template_name": "小女孩",
+			"name": "一个可爱的小女孩",
+			"name_en": "A lovely little girl",
 			"id": 6
 		}
 	]

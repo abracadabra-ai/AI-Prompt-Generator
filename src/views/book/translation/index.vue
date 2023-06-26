@@ -8,7 +8,7 @@
         type="textarea"
         placeholder="请输入中文"
         :resize="'none'"
-        @change="getEN"
+        @change="getInputTxt"
         @blur="saveUserInput"
         class="inputList__q--txt"
         ref="inputTxtRef"
@@ -69,7 +69,7 @@ import { ElMessage } from 'element-plus'
 import AddTemplateDialog from './addTemplateDialog/index.vue'
 import { Get, Post } from '@/utils/apis.js'
 import { useRouter } from 'vue-router'
-const router = useRouter()
+// const router = useRouter()
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
 onActivated(() => {
@@ -81,21 +81,31 @@ onActivated(() => {
 })
 
 // 是否在案例中跳过来
+// const caseInfo = ref(null)
 const setCaseInfo = () => {
-  caseInfo.value = JSON.parse(localStorage.getItem('caseInfo'))
-  caseInfo.value.type = 'case'
+  const caseInfo = JSON.parse(localStorage.getItem('caseInfo'))
+  caseInfo.type = 'case'
 
   localStorage.removeItem('caseInfo')
 
   saveInputTxt()
 
   // 输入英文框翻译中文
-  setOutputTxt(caseInfo.value)
+  setOutputTxt(caseInfo)
 }
 
-const setOutputTxt = (item) => {
-  outputTxt.value = item.name
-  getCN()
+const setOutputTxt = async (item) => {
+  showInputList.length = 0
+  const endTxt = await getMp3Url(item.name, 'zh-CHS', 'en') // 把案例翻译成中文
+  // 判断是否有英文，没有则单独翻译
+  showInputList.push({
+    type: item.type, // 用户输入
+    name: endTxt,
+    name_en: item.name,
+  })
+  // outputTxt.value = item.name
+  // getCN()
+  getInputTxt()
 }
 
 const showInputList = []
@@ -122,7 +132,9 @@ const saveInputTxt = () => {
     inputTxt.value += (item.name + `,`)
   })
 
-  getEN()
+  console.log('showInputList', showInputList)
+
+  getInputTxt()
 }
 
 // 复制
@@ -131,48 +143,58 @@ const inputTxt = ref('')
 const outputTxt = ref('')
 
 let timer = null
-const getEN = () => {
+// 组装两个input的数据
+const getInputTxt = () => {
   timer && clearTimeout(timer)
   timer = setTimeout(async () => {
-    outputTxt.value = await getMp3Url(inputTxt.value)
-    console.log('翻译')
+    // outputTxt.value = await getMp3Url(inputTxt.value)
+    const list_en = showInputList.map(item => item.name_en)
+    outputTxt.value = list_en.join(',')
+    const list_cn = showInputList.map(item => item.name)
+    inputTxt.value = list_cn.join(',')
+
+    console.log('翻译', showInputList)
   }, 500)
 }
 
-const caseInfo = ref(null)
-const getCN = () => {
-  timer && clearTimeout(timer)
-  timer = setTimeout(async () => {
-    inputTxt.value = await getMp3Url(outputTxt.value, 'zh-CHS', 'en')
+// const caseInfo = ref(null)
+// const getCN = () => {
+//   timer && clearTimeout(timer)
+//   timer = setTimeout(async () => {
+//     inputTxt.value = await getMp3Url(outputTxt.value, 'zh-CHS', 'en')
 
-    console.log(caseInfo.value)
-    caseInfo.value.name = inputTxt.value
-    showInputList.length = 0
-    showInputList.push(caseInfo.value)
-    console.log('翻译中文')
-  }, 500)
-}
+//     console.log(caseInfo.value)
+//     caseInfo.value.name = inputTxt.value
+//     showInputList.length = 0
+//     showInputList.push(caseInfo.value)
+//     console.log('翻译中文')
+//   }, 500)
+// }
 
 // 创建user输入
-const saveUserInput = () => {
+const saveUserInput = async () => {
   if (inputTxt.value) {
     // 如果最后一个的值是user，那么直接覆盖上去，不是则创建一个user
     const endList = showInputList[showInputList.length - 1]
     const endTxt = inputTxt.value.split(',')[inputTxt.value.split(',').length - 1]
     if (endList) {
       if (endList.type !== 'user') {
+        const name_en = await getMp3Url(endTxt)
+        // 判断是否有英文，没有则单独翻译
         showInputList.push({
           type: 'user', // 用户输入
           name: endTxt,
+          name_en,
         })
       } else {
-        console.log(8888, showInputList, showInputList[showInputList.length - 1], endTxt)
         showInputList[showInputList.length - 1].name = endTxt
       }
     } else {
+      const name_en = await getMp3Url(endTxt)
       showInputList.push({
         type: 'user', // 用户输入
-        name: endTxt
+        name: endTxt,
+        name_en,
       })
     }
   } else {

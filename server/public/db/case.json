@@ -1,70 +1,62 @@
 {
 	"list": [
 		{
-			"id": 1,
 			"name": "中文提示词",
-			"name_en": "prompt",
-			"image": "/server/public/upload/45b1391902c8ed09a5f2d8e00",
-			"type_id": 1
+			"image": "/upload/case/01593eba63da591481b305edcb93e62eb1568bb4826f9-c8sjwm_fw1200webp.webp",
+			"type_id": 1,
+			"id": 1
 		},
 		{
-			"id": 2,
 			"name": "中文提示词",
-			"name_en": "prompt",
-			"image": "/server/public/upload/45b1391902c8ed09a5f2d8e00",
-			"type_id": 2
+			"image": "/upload/case/儿童节海报-1.png",
+			"type_id": 2,
+			"id": 2
 		},
 		{
 			"name": "中文提示词22",
-			"image": "/server/public/upload/45b1391902c8ed09a5f2d8e00",
+			"image": "/upload/case/儿童节.jpeg",
 			"type_id": 3,
 			"id": 3
 		},
 		{
-			"id": 4,
 			"name": "中文提示词",
-			"name_en": "prompt",
-			"image": "/server/public/upload/45b1391902c8ed09a5f2d8e00",
-			"type_id": 4
+			"image": "/upload/case/image 6.png",
+			"type_id": 4,
+			"id": 4
 		},
 		{
 			"id": 5,
-			"name": "中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj",
-			"image": "/upload/tag/icon.png",
-			"type_id": 1
+			"name": "中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj中文提示词ha哇h2哈哈378907uytj",
+			"image": "/upload/case/1adca31c203e9e91e7aaa4eec549aa436449e8e8a80c4-UH2iZt_fw480webp.webp",
+			"type_id": 3
 		},
 		{
 			"name": "ss",
-			"name_en": "cc",
-			"image": "/upload/tag/d1.png",
+			"image": "/upload/case/儿童节海报-3.jpeg",
 			"type_id": 2,
 			"id": 6
 		},
 		{
 			"name": "ss",
-			"name_en": "cc11",
-			"image": "/upload/tag/d1.png",
+			"image": "/upload/case/9799a040971e66a53da8cae939d06cac3a8be51912d536-ALbOi0.jpeg",
 			"type_id": 1,
 			"id": 7
 		},
 		{
 			"name": "ttt",
-			"name_en": "22",
-			"image": "/upload/tag/c1.png",
+			"image": "/upload/case/儿童节 (1).jpeg",
 			"type_id": 1,
 			"id": 8
 		},
 		{
 			"name": "cs",
-			"name_en": "cs",
-			"image": "/upload/tag/c1.png",
+			"image": "/upload/case/儿童节海报-2.jpeg",
 			"type_id": 1,
 			"id": 9
 		},
 		{
 			"name": "动作",
-			"name_en": "css",
-			"image": "/upload/tag/c_20243_intro_moreCourse.png",
+			"image": "/upload/case/Mask group.png",
 			"type_id": 8,
 			"id": 10
 		},
@@ -75,16 +67,52 @@
 			"id": 11
 		},
 		{
-			"id": 12,
-			"name": "tree",
-			"image": "/upload/case/bg@2x.png",
-			"type_id": 1
+			"name": "lying on the ground",
+			"image": "/upload/case/image 16.png",
+			"type_id": 1,
+			"id": 12
 		},
 		{
 			"id": 13,
-			"name": "There is a bird in the tree",
-			"image": "/upload/case/test.gif",
+			"name": "呜啦啦啦",
+			"image": "/upload/case/1d13b4cf1c8206d9c7acaa49e92725da1c2a52f21a83d9-XmSBgp.jpeg",
+			"type_id": 2
+		},
+		{
+			"id": 14,
+			"name": "哟哈哈哈哈",
+			"image": "/upload/case/grid_0.png",
 			"type_id": 1
+		},
+		{
+			"id": 15,
+			"name": "123",
+			"image": "/upload/case/画啦啦_5M30_插画海报_自由创想快乐成长_王子臣_20220526.jpg",
+			"type_id": 1
+		},
+		{
+			"id": 16,
+			"name": "a mother is holding a bunch of flowers, a boy is laughing and drawing, there are some flowers nearby, disney style, children's book illustrations style,8k, high quality,close-up shot--ar 9:16 ",
+			"image": "/upload/case/049c0479146249.5cb9eeb14691f.jpg",
+			"type_id": 4
+		},
+		{
+			"id": 17,
+			"name": "一只鳄鱼",
+			"image": "/upload/case/57a8e962790729.5a9c13336cc0d.jpg",
+			"type_id": 1
+		},
+		{
+			"id": 18,
+			"name": "时间时间时间简史",
+			"image": "/upload/case/船长.png",
+			"type_id": 1
+		},
+		{
+			"id": 19,
+			"name": "我测试一下 可以删掉",
+			"image": "/upload/case/船长.png",
+			"type_id": 5
 		}
 	]
 }
