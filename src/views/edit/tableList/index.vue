@@ -242,6 +242,7 @@ defineExpose({
 
   &__content {
     white-space: pre-wrap;
+    color: #2E2F33;
   }
 }
 
