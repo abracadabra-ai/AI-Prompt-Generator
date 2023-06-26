@@ -8,7 +8,7 @@
         type="textarea"
         placeholder="请输入中文"
         :resize="'none'"
-        @change="getInputTxt"
+        @change="changeInputTxt"
         @blur="saveUserInput"
         class="inputList__q--txt"
         ref="inputTxtRef"
@@ -132,8 +132,6 @@ const saveInputTxt = () => {
     inputTxt.value += (item.name + `,`)
   })
 
-  console.log('showInputList', showInputList)
-
   getInputTxt()
 }
 
@@ -153,8 +151,33 @@ const getInputTxt = () => {
     const list_cn = showInputList.map(item => item.name)
     inputTxt.value = list_cn.join(',')
 
-    console.log('翻译', showInputList)
   }, 500)
+}
+
+// 处理input框内内容变化
+const changeInputTxt = (e) => {
+  const list = e.replace(/,\s*$/, '').split(',')
+  showInputList.forEach((item) => {
+    item.sel = false
+  })
+
+  // 遍历showInputList，如果跟list不匹配，删除showInputList中的item
+  const newList = list.map(item => {
+    console.log(item)
+    if (showInputList.filter(input => input.name === item)[0]) {
+      showInputList.filter(input => input.name === item)[0].sel = true
+      return showInputList.filter(input => input.name === item)[0]
+    } else {
+      if (item) {
+        return {
+          type: 'user', // 用户输入
+          name: item,
+        }
+      }
+    }
+  })
+  showInputList.length = 0
+  showInputList.push(...newList)
 }
 
 // const caseInfo = ref(null)
@@ -173,33 +196,46 @@ const getInputTxt = () => {
 
 // 创建user输入
 const saveUserInput = async () => {
-  if (inputTxt.value) {
-    // 如果最后一个的值是user，那么直接覆盖上去，不是则创建一个user
-    const endList = showInputList[showInputList.length - 1]
-    const endTxt = inputTxt.value.split(',')[inputTxt.value.split(',').length - 1]
-    if (endList) {
-      if (endList.type !== 'user') {
-        const name_en = await getMp3Url(endTxt)
-        // 判断是否有英文，没有则单独翻译
-        showInputList.push({
-          type: 'user', // 用户输入
-          name: endTxt,
-          name_en,
-        })
-      } else {
-        showInputList[showInputList.length - 1].name = endTxt
+  const iTxt = inputTxt.value.replace(/,\s*$/, '')
+  if (iTxt) {
+    // 翻译英文
+    for (let i in showInputList) {
+      const item = showInputList[i]
+      if (!item.name_en) {
+        const name_en = await getMp3Url(item.name)
+        item.name_en = name_en
       }
-    } else {
-      const name_en = await getMp3Url(endTxt)
-      showInputList.push({
-        type: 'user', // 用户输入
-        name: endTxt,
-        name_en,
-      })
     }
+
+    // 如果最后一个的值是user，那么直接覆盖上去，不是则创建一个user
+    // const endList = showInputList[showInputList.length - 1]
+    // const endTxt = iTxt.split(',')[iTxt.split(',').length - 1]
+    // if (endList) {
+    //   if (endList.type !== 'user') {
+    //     const name_en = await getMp3Url(endTxt)
+    //     // 判断是否有英文，没有则单独翻译
+    //     showInputList.push({
+    //       type: 'user', // 用户输入
+    //       name: endTxt,
+    //       name_en,
+    //     })
+    //   } else {
+    //     const name_en = await getMp3Url(endTxt)
+    //     showInputList[showInputList.length - 1].name = endTxt
+    //     showInputList[showInputList.length - 1].name_en = name_en
+    //   }
+    // } else {
+    //   const name_en = await getMp3Url(endTxt)
+    //   showInputList.push({
+    //     type: 'user', // 用户输入
+    //     name: endTxt,
+    //     name_en,
+    //   })
+    // }
   } else {
     showInputList.length = 0
   }
+  getInputTxt()
 }
 
 
