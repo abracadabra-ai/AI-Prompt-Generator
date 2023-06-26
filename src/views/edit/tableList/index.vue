@@ -84,6 +84,23 @@ const emits = defineEmits(['update', 'clearSelAll', 'selAll'])
 
 const route = useRoute()
 
+// 删除接口
+const ListApi = computed(() => {
+  if (routeType.value === 'book') {
+    return {
+      delete: '/card/delete',
+    }
+  } else if (routeType.value === 'template') {
+    return {
+      delete: '/template/delete',
+    }
+  } else {
+    return {
+      delete: '/case/delete',
+    }
+  }
+})
+
 // 当前编辑: book魔法书，case案例
 const routeType = computed(() => {
   return route.query.type
@@ -147,7 +164,6 @@ watch(() =>
   }
 )
 
-
 // 修改分类
 const addCardDialog = ref(null) // 魔法书弹框
 const addCaseDialog = ref(null)
@@ -174,7 +190,7 @@ const delCard = async (item) => {
     cancelButtonText: '取消',
     type: 'warning',
   }).then(async () => {
-    const res = await Get(`/${ routeType.value }/delete/${item.id}`)
+    const res = await Get(`${ ListApi.value.delete }/${ item.id }`)
     if (res.code === 0) {
       ElMessage({
         type: 'success',

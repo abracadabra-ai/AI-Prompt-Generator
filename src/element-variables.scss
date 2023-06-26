@@ -1,8 +1,16 @@
 .el-dropdown-menu__item {
-  --el-dropdown-menuItem-hover-color: #1B16FF
+  --el-dropdown-menuItem-hover-color: #1B16FF;
 }
 .el-button--primary {
-  --el-color-primary: #1B16FF
+  --el-color-primary: #1B16FF;
+}
+.el-button:active{
+  --el-button-active-border-color: #1B16FF;
+  --el-button-active-bg-color: #1B16FF;
+}
+.el-button:focus, .el-button:hover {
+  --el-button-hover-bg-color: #1B16FF;
+  --el-button-hover-border-color: #1B16FF;
 }
 .el-table {
   --el-table-row-hover-bg-color: #FAFAFF !important;
