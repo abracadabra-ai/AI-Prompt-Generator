@@ -346,7 +346,7 @@ getTemplateList()
       background-size: 100% 100%;
     }
     &:deep(.el-textarea__inner) {
-      height: 130px;
+      height: 140px;
       border: none;
       box-shadow: none;
     }
@@ -416,7 +416,7 @@ getTemplateList()
       border-radius: 2px;
     }
     &:deep(.el-textarea__inner) {
-      height: 130px;
+      height: 140px;
       border: none;
       box-shadow: none;
     }

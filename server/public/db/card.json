@@ -113,6 +113,13 @@
 			"name_en": "不上传图片也可以吗",
 			"image": "",
 			"category_id": 1
+		},
+		{
+			"id": 17,
+			"name": "sss",
+			"name_en": "cccss",
+			"image": "/upload/category/Puny_Ko_a_little_boy._Impasto_f601ae13-b036-41b9-bdea-4dadbfb5d459.png",
+			"category_id": 1
 		}
 	]
 }
