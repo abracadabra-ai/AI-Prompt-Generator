@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"] // 让vscode识别'@'路径别名
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
