@@ -1,4 +1,10 @@
 .el-dropdown-menu__item {
+<<<<<<< HEAD
+  --el-dropdown-menuItem-hover-color: #1B16FF
+}
+.el-button--primary {
+  --el-color-primary: #1B16FF
+=======
   --el-dropdown-menuItem-hover-color: #1B16FF;
 }
 .el-button--primary {
@@ -11,10 +17,13 @@
 .el-button:focus, .el-button:hover {
   --el-button-hover-bg-color: #1B16FF;
   --el-button-hover-border-color: #1B16FF;
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 }
 .el-table {
   --el-table-row-hover-bg-color: #FAFAFF !important;
   --el-table-current-row-bg-color: #FAFAFF !important;
+<<<<<<< HEAD
+=======
 }
 .el-checkbox__input.is-checked .el-checkbox__inner {
   --el-checkbox-checked-bg-color: #1B16FF;
@@ -22,4 +31,5 @@
 }
 .el-checkbox__inner {
   --el-checkbox-border-radius: 2px;
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 }

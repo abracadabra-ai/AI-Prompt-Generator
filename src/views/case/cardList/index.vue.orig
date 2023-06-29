@@ -162,8 +162,11 @@ getTypeList()
       margin-right: 10px;
       margin-bottom: 10px;
       cursor: pointer;
+<<<<<<< HEAD
+=======
       height: 18px;
       line-height: 18px;
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 
       img {
         vertical-align: middle;

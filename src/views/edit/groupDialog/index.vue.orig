@@ -99,8 +99,12 @@ const dialogVisible = ref(false)
 
 const list = ref([])
 const open = (tags) => {
+<<<<<<< HEAD
+  list.value = [...tags]
+=======
   const items = tags.filter((item) => item.id) // 过滤掉’全部‘:id=0
   list.value = [...items]
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
   dialogVisible.value = true
 }
 

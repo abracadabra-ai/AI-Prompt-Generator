@@ -1,0 +1,32 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run prod",
+    "dev": "babel-node ./src/bin/www",
+    "clean": "rimraf dist",
+    "build": "babel ./src --out-dir dist",
+    "prod": "node ./dist/bin/www",
+    "watch": "nodemon"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "formidable": "^2.1.1",
+    "morgan": "~1.9.1",
+<<<<<<< HEAD
+    "pm2": "^5.3.0",
+=======
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
+    "rimraf": "^5.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.21.8",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.21.5",
+    "nodemon": "^2.0.22"
+  }
+}

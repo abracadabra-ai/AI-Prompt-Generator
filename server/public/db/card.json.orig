@@ -2,6 +2,7 @@
 	"list": [
 		{
 			"id": 1,
+<<<<<<< HEAD
 			"category_id": 2,
 			"name": "儿童绘本",
 			"name_en": "children's book illustration",
@@ -734,6 +735,126 @@
 			"name_en": "--ar 3:4",
 			"image": "/upload/category/Frame 5.png",
 			"category_id": 14
+=======
+			"name": "中文提示词",
+			"name_en": "prompt",
+			"image": "/upload/category/test.gif",
+			"category_id": 2
+		},
+		{
+			"id": 2,
+			"name": "中文提示词",
+			"name_en": "prompt",
+			"image": "/server/public/upload/45b1391902c8ed09a5f2d8e00",
+			"category_id": 2
+		},
+		{
+			"name": "中文提示词44445",
+			"name_en": "prompt",
+			"image": "/server/public/upload/45b1391902c8ed09a5f2d8e00",
+			"category_id": 3,
+			"id": 3
+		},
+		{
+			"name": "中文提示词",
+			"name_en": "prompt",
+			"image": "/upload/category/icon.png",
+			"category_id": 4,
+			"id": 4
+		},
+		{
+			"name": "中文提示词ha哇h2哈哈378907uytj",
+			"name_en": "prompt",
+			"image": "/upload/tag/icon.png",
+			"category_id": 1,
+			"id": 5
+		},
+		{
+			"name": "ss",
+			"name_en": "cc",
+			"image": "/upload/tag/d1.png",
+			"category_id": 2,
+			"id": 6
+		},
+		{
+			"id": 7,
+			"name": "中文叫啥",
+			"name_en": "cc11",
+			"image": "/upload/tag/d1.png",
+			"category_id": 7,
+			"imageEx": "/upload/tag/d1.png",
+			"sel": false
+		},
+		{
+			"id": 8,
+			"name": "ttt",
+			"name_en": "22",
+			"image": "/upload/tag/c1.png",
+			"category_id": 1
+		},
+		{
+			"name": "cs",
+			"name_en": "cs",
+			"image": "/upload/tag/c1.png",
+			"category_id": 1,
+			"id": 9
+		},
+		{
+			"name": "动作",
+			"name_en": "css",
+			"image": "/upload/tag/c_20243_intro_moreCourse.png",
+			"category_id": 8,
+			"id": 10
+		},
+		{
+			"name": "画小帅",
+			"name_en": "hxs",
+			"image": "/upload/category/image 3.png",
+			"category_id": 11,
+			"id": 11
+		},
+		{
+			"id": 12,
+			"name": "16:9",
+			"name_en": "--ar 16:9",
+			"image": "",
+			"category_id": 11
+		},
+		{
+			"id": 13,
+			"name": "16:9",
+			"name_en": "--ar 16:9",
+			"image": "",
+			"category_id": 15
+		},
+		{
+			"id": 14,
+			"name": "在草地上奔跑",
+			"name_en": "run on the sky",
+			"image": "",
+			"category_id": 15
+		},
+		{
+			"id": 15,
+			"name": "可爱 的海马船长角色",
+			"name_en": "cute ",
+			"image": "/upload/category/船长.png",
+			"category_id": 1
+		},
+		{
+			"id": 16,
+			"name": "我试试",
+			"name_en": "不上传图片也可以吗",
+			"image": "",
+			"category_id": 1
+		},
+		{
+			"id": 17,
+			"name": "sss",
+			"name_en": "cccss",
+			"image": "/upload/category/Puny_Ko_a_little_boy._Impasto_f601ae13-b036-41b9-bdea-4dadbfb5d459.png",
+			"category_id": 1
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 		}
 	]
 }

@@ -84,6 +84,8 @@ const emits = defineEmits(['update', 'clearSelAll', 'selAll'])
 
 const route = useRoute()
 
+<<<<<<< HEAD
+=======
 // 删除接口
 const ListApi = computed(() => {
   if (routeType.value === 'book') {
@@ -101,6 +103,7 @@ const ListApi = computed(() => {
   }
 })
 
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 // 当前编辑: book魔法书，case案例
 const routeType = computed(() => {
   return route.query.type
@@ -164,6 +167,10 @@ watch(() =>
   }
 )
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 // 修改分类
 const addCardDialog = ref(null) // 魔法书弹框
 const addCaseDialog = ref(null)
@@ -190,7 +197,11 @@ const delCard = async (item) => {
     cancelButtonText: '取消',
     type: 'warning',
   }).then(async () => {
+<<<<<<< HEAD
+    const res = await Get(`/${ routeType.value }/delete/${item.id}`)
+=======
     const res = await Get(`${ ListApi.value.delete }/${ item.id }`)
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
     if (res.code === 0) {
       ElMessage({
         type: 'success',
@@ -242,7 +253,10 @@ defineExpose({
 
   &__content {
     white-space: pre-wrap;
+<<<<<<< HEAD
+=======
     color: #2E2F33;
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
   }
 }
 

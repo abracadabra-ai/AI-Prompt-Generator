@@ -143,6 +143,8 @@ export default {
       });
     });
   },
+<<<<<<< HEAD
+=======
   /**
    * 批量删除
    * @param {*} ids 需要删除的id列表
@@ -168,4 +170,5 @@ export default {
       });
     });
   },
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 };

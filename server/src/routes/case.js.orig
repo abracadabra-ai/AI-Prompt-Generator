@@ -86,10 +86,17 @@ router.post("/update", (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+// 删除
+router.delete("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  CaseService.delete(id, (err, data) => {
+=======
 // 批量删除
 router.post("/deleteList", (req, res) => {
   const ids = req.body;
   CaseService.deleteList(ids, (err, data) => {
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
     if (err) {
       responseClient(res, 500, -10000, "服务端异常", null);
       return;

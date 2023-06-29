@@ -8,7 +8,11 @@
         type="textarea"
         placeholder="请输入中文"
         :resize="'none'"
+<<<<<<< HEAD
+        @change="getEN"
+=======
         @change="changeInputTxt"
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
         @blur="saveUserInput"
         class="inputList__q--txt"
         ref="inputTxtRef"
@@ -69,7 +73,11 @@ import { ElMessage } from 'element-plus'
 import AddTemplateDialog from './addTemplateDialog/index.vue'
 import { Get, Post } from '@/utils/apis.js'
 import { useRouter } from 'vue-router'
+<<<<<<< HEAD
+const router = useRouter()
+=======
 // const router = useRouter()
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
 onActivated(() => {
@@ -81,16 +89,30 @@ onActivated(() => {
 })
 
 // 是否在案例中跳过来
+<<<<<<< HEAD
+const setCaseInfo = () => {
+  caseInfo.value = JSON.parse(localStorage.getItem('caseInfo'))
+  caseInfo.value.type = 'case'
+=======
 // const caseInfo = ref(null)
 const setCaseInfo = () => {
   const caseInfo = JSON.parse(localStorage.getItem('caseInfo'))
   caseInfo.type = 'case'
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 
   localStorage.removeItem('caseInfo')
 
   saveInputTxt()
 
   // 输入英文框翻译中文
+<<<<<<< HEAD
+  setOutputTxt(caseInfo.value)
+}
+
+const setOutputTxt = (item) => {
+  outputTxt.value = item.name
+  getCN()
+=======
   setOutputTxt(caseInfo)
 }
 
@@ -106,6 +128,7 @@ const setOutputTxt = async (item) => {
   // outputTxt.value = item.name
   // getCN()
   getInputTxt()
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 }
 
 const showInputList = []
@@ -132,7 +155,11 @@ const saveInputTxt = () => {
     inputTxt.value += (item.name + `,`)
   })
 
+<<<<<<< HEAD
+  getEN()
+=======
   getInputTxt()
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 }
 
 // 复制
@@ -141,6 +168,55 @@ const inputTxt = ref('')
 const outputTxt = ref('')
 
 let timer = null
+<<<<<<< HEAD
+const getEN = () => {
+  timer && clearTimeout(timer)
+  timer = setTimeout(async () => {
+    outputTxt.value = await getMp3Url(inputTxt.value)
+    console.log('翻译')
+  }, 500)
+}
+
+const caseInfo = ref(null)
+const getCN = () => {
+  timer && clearTimeout(timer)
+  timer = setTimeout(async () => {
+    inputTxt.value = await getMp3Url(outputTxt.value, 'zh-CHS', 'en')
+
+    console.log(caseInfo.value)
+    caseInfo.value.name = inputTxt.value
+    showInputList.length = 0
+    showInputList.push(caseInfo.value)
+    console.log('翻译中文')
+  }, 500)
+}
+
+// 创建user输入
+const saveUserInput = () => {
+  if (inputTxt.value) {
+    // 如果最后一个的值是user，那么直接覆盖上去，不是则创建一个user
+    const endList = showInputList[showInputList.length - 1]
+    const endTxt = inputTxt.value.split(',')[inputTxt.value.split(',').length - 1]
+    if (endList) {
+      if (endList.type !== 'user') {
+        showInputList.push({
+          type: 'user', // 用户输入
+          name: endTxt,
+        })
+      } else {
+        console.log(8888, showInputList, showInputList[showInputList.length - 1], endTxt)
+        showInputList[showInputList.length - 1].name = endTxt
+      }
+    } else {
+      showInputList.push({
+        type: 'user', // 用户输入
+        name: endTxt
+      })
+    }
+  } else {
+    showInputList.length = 0
+  }
+=======
 // 组装两个input的数据
 const getInputTxt = () => {
   timer && clearTimeout(timer)
@@ -236,6 +312,7 @@ const saveUserInput = async () => {
     showInputList.length = 0
   }
   getInputTxt()
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
 }
 
 
@@ -346,7 +423,11 @@ getTemplateList()
       background-size: 100% 100%;
     }
     &:deep(.el-textarea__inner) {
+<<<<<<< HEAD
+      height: 130px;
+=======
       height: 140px;
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
       border: none;
       box-shadow: none;
     }
@@ -416,7 +497,11 @@ getTemplateList()
       border-radius: 2px;
     }
     &:deep(.el-textarea__inner) {
+<<<<<<< HEAD
+      height: 130px;
+=======
       height: 140px;
+>>>>>>> dcfc0e94c88ba25c4f8b2e29c7803af4ec53a13d
       border: none;
       box-shadow: none;
     }
