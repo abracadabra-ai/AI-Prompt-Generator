@@ -17,8 +17,7 @@ AI-Prompt-Generator is an open-source project that provides functionalities for 
 以下是本项目的部署步骤：
 
 ### 客户端部署
-
-1. 在项目的根目录中运行以下命令，将客户端项目打包至 './server/public/dist' 目录下。
+在项目的根目录中运行以下命令，将客户端项目打包至 './server/public/dist' 目录下。
 
    ```
    npm install
@@ -26,8 +25,7 @@ AI-Prompt-Generator is an open-source project that provides functionalities for 
    ```
 
 ### 服务端部署
-
-2. 切换到 'server' 目录，运行以下命令，将服务端代码进行打包。
+ 切换到 'server' 目录，运行以下命令，将服务端代码进行打包。
 
    ```
    cd server
@@ -36,8 +34,7 @@ AI-Prompt-Generator is an open-source project that provides functionalities for 
    ```
 
 #### 本地运行
-
-3. 在 'server' 目录中继续运行以下命令，本地启动服务。（本地测试或者开发）
+在 'server' 目录中继续运行以下命令，本地启动服务。（本地测试或者开发）
 
    ```
    npm run prod
@@ -45,8 +42,7 @@ AI-Prompt-Generator is an open-source project that provides functionalities for 
    然后可以通过访问以下本地链接进行测试：http://127.0.0.1:3000/
 
 #### 使用 PM2 进行部署
-
-4. 如果你想使用 PM2 来进行服务器部署，在 'server' 目录中继续运行以下命令（PM2 请自行安装）：
+如果你想使用 PM2 来进行服务器部署，在 'server' 目录中继续运行以下命令（PM2 请自行安装）：
 
    ```
    pm2 start node ./dist/bin/www
