@@ -1,13 +1,8 @@
-# Vue 3 + Vite
+# AI-Prompt-Generator
 
-test test
+AI-Prompt-Generator 是一个开源项目，旨在提供管理和生成prompt的功能。AI-Prompt-Generator 提供一个简单易用的界面，让用户能够轻松地创建、保存和管理他们的prompt，并优化其效果。适用于各种生成文本的应用场景。
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
+AI-Prompt-Generator is an open-source project that provides functionalities for managing and generating prompts. It offers a user-friendly interface for users to easily create, save, and manage their prompts, and optimize their effects. Suitable for various applications of generated text.
 
 ## 打包：
 #### 1.在根目录运行npm run build，把c端项目打包至，'./server/public/dist' 命令下
