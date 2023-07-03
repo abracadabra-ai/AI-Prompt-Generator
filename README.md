@@ -4,7 +4,7 @@ AI-Prompt-Generator 是一个开源项目，旨在提供管理和生成MidJourne
 
 AI-Prompt-Generator is an open-source project that provides functionalities for managing and generating MidJourney or StableDiffusion prompts. It offers a user-friendly interface for users to easily create, save, and manage their prompts, and optimize their effects. Suitable for various applications of generated text.
 
-![image](https://raw.githubusercontent.com/abracadabra-ai/AI-Prompt-Generator/main/public/example.png)
+![image]([https://raw.githubusercontent.com/abracadabra-ai/AI-Prompt-Generator/main/public/example.png](https://github.com/abracadabra-ai/AI-Prompt-Generator/blob/18c752675fe2ce6e73c7c30dcbb03577fbdc52ef/public/example.png))
 
 ## Feature List
 - ✅ Support 魔法词(prompt)管理
