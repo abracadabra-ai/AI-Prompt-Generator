@@ -1,0 +1,25 @@
+.el-dropdown-menu__item {
+  --el-dropdown-menuItem-hover-color: #1B16FF;
+}
+.el-button--primary {
+  --el-color-primary: #1B16FF;
+}
+.el-button:active{
+  --el-button-active-border-color: #1B16FF;
+  --el-button-active-bg-color: #1B16FF;
+}
+.el-button:focus, .el-button:hover {
+  --el-button-hover-bg-color: #1B16FF;
+  --el-button-hover-border-color: #1B16FF;
+}
+.el-table {
+  --el-table-row-hover-bg-color: #FAFAFF !important;
+  --el-table-current-row-bg-color: #FAFAFF !important;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner {
+  --el-checkbox-checked-bg-color: #1B16FF;
+  --el-checkbox-checked-input-border-color: #1B16FF;
+}
+.el-checkbox__inner {
+  --el-checkbox-border-radius: 2px;
+}
